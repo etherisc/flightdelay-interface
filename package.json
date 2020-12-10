@@ -1,6 +1,6 @@
 {
-  "name": "@uniswap/interface",
-  "description": "Uniswap Interface",
+  "name": "@etherisc/flight-delay-ui",
+  "description": "Etherisc Flight Delay Interface",
   "homepage": ".",
   "private": true,
   "devDependencies": {
@@ -31,7 +31,7 @@
     "@uniswap/liquidity-staker": "^1.0.2",
     "@uniswap/merkle-distributor": "1.0.1",
     "@uniswap/sdk": "3.0.3",
-    "@uniswap/token-lists": "^1.0.0-beta.18",
+    "@uniswap/token-lists": "^1.0.0-beta.19",
     "@uniswap/v2-core": "1.0.0",
     "@uniswap/v2-periphery": "^1.1.0-beta.0",
     "@web3-react/core": "^6.0.9",
@@ -64,10 +64,10 @@
     "polished": "^3.3.2",
     "prettier": "^1.17.0",
     "qs": "^6.9.4",
-    "react": "^16.13.1",
+    "react": "^16.14.0",
     "react-confetti": "^6.0.0",
     "react-device-detect": "^1.6.2",
-    "react-dom": "^16.13.1",
+    "react-dom": "^16.14.0",
     "react-feather": "^2.0.8",
     "react-ga": "^2.5.7",
     "react-i18next": "^10.7.0",
@@ -117,5 +117,12 @@
       "last 1 safari version"
     ]
   },
-  "license": "GPL-3.0-or-later"
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "@babel/runtime": "^7.12.5",
+    "@types/react-dates": "^21.8.1",
+    "moment": "^2.29.1",
+    "react-dates": "^21.8.0",
+    "react-with-direction": "^1.3.1"
+  }
 }
