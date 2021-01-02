@@ -4,7 +4,6 @@ import { darken } from 'polished'
 import { RowBetween } from '../Row'
 import { TYPE } from '../../theme'
 import { useTranslation } from 'react-i18next'
-import { Flight } from '../../entities/flight'
 import { useFlightDetailsState } from '../../state/flightDetails/hooks'
 import { Moment } from 'moment'
 
