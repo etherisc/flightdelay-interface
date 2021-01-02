@@ -1,6 +1,6 @@
 name: Release
 on:
-  schedule:
+  # schedule:
   #  - cron:  '0 12 * * 1-4' # every day 12:00 UTC Monday-Thursday
 
   # manual trigger
