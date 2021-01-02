@@ -56,11 +56,10 @@ const InputRow = styled.div`
 `
 
 interface FlightDetailsPanelProps {
-  flight: Flight
   id: string
 }
 
-export default function FlightDetailsPanel({ flight, id }: FlightDetailsPanelProps) {
+export default function FlightDetailsPanel({ id }: FlightDetailsPanelProps) {
   const { t } = useTranslation()
 
   const theme = useContext(ThemeContext)

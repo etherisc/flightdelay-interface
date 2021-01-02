@@ -80,7 +80,7 @@ export default function Apply() {
               id="carrier-select-input"
             />
             {showFlightDetails ? <FlightDetailsPanel flight={flight} id="flight-details-input-2" /> : null}
-            <QuoteDetailsPanel flight={flight} id="flight-details-input-2" />
+            <QuoteDetailsPanel id="flight-details-input-2" />
           </AutoColumn>
           <BottomGrouping>
             {!account ? (
