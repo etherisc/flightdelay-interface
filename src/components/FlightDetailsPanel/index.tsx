@@ -1,4 +1,4 @@
-import React, { /* useCallback ,*/ useContext } from 'react'
+import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { darken } from 'polished'
 import { RowBetween } from '../Row'
