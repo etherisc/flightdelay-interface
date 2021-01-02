@@ -4,11 +4,9 @@ import { save, load } from 'redux-localstorage-simple'
 import application from './application/reducer'
 import { updateVersion } from './global/actions'
 import user from './user/reducer'
+import apply from './apply/reducer'
+import flightDetails from './flightDetails/reducer'
 import transactions from './transactions/reducer'
-import swap from './swap/reducer'
-import mint from './mint/reducer'
-import lists from './lists/reducer'
-import burn from './burn/reducer'
 import multicall from './multicall/reducer'
 
 const PERSISTED_KEYS: string[] = ['user', 'transactions', 'lists']
@@ -16,15 +14,16 @@ const PERSISTED_KEYS: string[] = ['user', 'transactions', 'lists']
 const store = configureStore({
   reducer: {
     application,
+    apply,
+    flightDetails,
     user,
     transactions,
-    swap,
-    mint,
-    burn,
-    multicall,
-    lists
+    multicall
   },
-  middleware: [...getDefaultMiddleware({ thunk: false }), save({ states: PERSISTED_KEYS })],
+  middleware: [
+    ...getDefaultMiddleware({ thunk: true, immutableCheck: false, serializableCheck: false }),
+    save({ states: PERSISTED_KEYS })
+  ],
   preloadedState: load({ states: PERSISTED_KEYS })
 })
 

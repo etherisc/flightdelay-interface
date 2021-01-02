@@ -35,6 +35,19 @@ export const MenuItem = styled(RowBetween)`
   }
   opacity: ${({ disabled, selected }) => (disabled || selected ? 0.5 : 1)};
 `
+export const CarrierItem = styled(RowBetween)`
+  padding: 4px 20px;
+  height: 56px;
+  display: grid;
+  grid-template-columns: auto minmax(auto, 1fr) auto;
+  grid-gap: 16px;
+  cursor: ${({ disabled }) => !disabled && 'pointer'};
+  pointer-events: ${({ disabled }) => disabled && 'none'};
+  :hover {
+    background-color: ${({ theme, disabled }) => !disabled && theme.bg2};
+  }
+  opacity: ${({ disabled, selected }) => (disabled || selected ? 0.5 : 1)};
+`
 
 export const SearchInput = styled.input`
   position: relative;

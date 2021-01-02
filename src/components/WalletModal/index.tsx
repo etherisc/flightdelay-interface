@@ -19,6 +19,7 @@ import AccountDetails from '../AccountDetails'
 import Modal from '../Modal'
 import Option from './Option'
 import PendingView from './PendingView'
+import { useTranslation } from 'react-i18next'
 
 const CloseIcon = styled.div`
   position: absolute;
@@ -125,6 +126,7 @@ export default function WalletModal({
   confirmedTransactions: string[] // hashes of confirmed
   ENSName?: string
 }) {
+  const { t } = useTranslation()
   // important that these are destructed from the account-specific web3-react context
   const { active, account, connector, activate, error } = useWeb3React()
 
@@ -295,12 +297,12 @@ export default function WalletModal({
           <CloseIcon onClick={toggleWalletModal}>
             <CloseColor />
           </CloseIcon>
-          <HeaderRow>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</HeaderRow>
+          <HeaderRow>{error instanceof UnsupportedChainIdError ? t('wrongNetwork2') : t('errorConnecting2')}</HeaderRow>
           <ContentWrapper>
             {error instanceof UnsupportedChainIdError ? (
-              <h5>Please connect to the appropriate Ethereum network.</h5>
+              <h5>{t('connectAppropriateNetwork')}</h5>
             ) : (
-              'Error connecting. Try refreshing the page.'
+              t('errorConnecting')
             )}
           </ContentWrapper>
         </UpperSection>
@@ -330,12 +332,12 @@ export default function WalletModal({
                 setWalletView(WALLET_VIEWS.ACCOUNT)
               }}
             >
-              Back
+              {t('back')}
             </HoverText>
           </HeaderRow>
         ) : (
           <HeaderRow>
-            <HoverText>Connect to a wallet</HoverText>
+            <HoverText>{t('connectToWallet')}</HoverText>
           </HeaderRow>
         )}
         <ContentWrapper>
@@ -351,8 +353,8 @@ export default function WalletModal({
           )}
           {walletView !== WALLET_VIEWS.PENDING && (
             <Blurb>
-              <span>New to Ethereum? &nbsp;</span>{' '}
-              <ExternalLink href="https://ethereum.org/wallets/">Learn more about wallets</ExternalLink>
+              <span>{t('newToEthereum')} &nbsp;</span>{' '}
+              <ExternalLink href="https://ethereum.org/wallets/">{t('learnMore')}</ExternalLink>
             </Blurb>
           )}
         </ContentWrapper>

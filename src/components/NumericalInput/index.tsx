@@ -1,24 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import { escapeRegExp } from '../../utils'
 
-const StyledInput = styled.input<{ error?: boolean; fontSize?: string; align?: string }>`
-  color: ${({ error, theme }) => (error ? theme.red1 : theme.text1)};
+const StyledInput = styled.input<{ active?: boolean; align?: string }>`
+  color: ${({ active, theme }) => (active ? theme.text1 : theme.text2)};
   width: 0;
   position: relative;
   font-weight: 500;
   outline: none;
   border: none;
   flex: 1 1 auto;
-  background-color: ${({ theme }) => theme.bg1};
-  font-size: ${({ fontSize }) => fontSize ?? '24px'};
+  background-color: ${({ theme }) => theme.bg2};
+  font-size: ${({ active }) => (active ? '20px' : '16px')};
   text-align: ${({ align }) => align && align};
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 0px;
+  padding: 0px 8px;
+  min-height: 2.2rem;
+  border-radius: 12px;
   -webkit-appearance: textfield;
-
+  :hover {
+    background-color: ${({ theme }) => theme.bg3};
+  }
   ::-webkit-search-decoration {
     -webkit-appearance: none;
   }
@@ -33,49 +36,43 @@ const StyledInput = styled.input<{ error?: boolean; fontSize?: string; align?: s
   }
 
   ::placeholder {
-    color: ${({ theme }) => theme.text4};
+    color: ${({ theme }) => theme.text2};
   }
 `
 
-const inputRegex = RegExp(`^\\d*(?:\\\\[.])?\\d*$`) // match escaped "." characters via in a non-capturing group
-
 export const Input = React.memo(function InnerInput({
   value,
+  active,
   onUserInput,
   placeholder,
   ...rest
 }: {
   value: string | number
+  active?: boolean
   onUserInput: (input: string) => void
   error?: boolean
   fontSize?: string
   align?: 'right' | 'left'
 } & Omit<React.HTMLProps<HTMLInputElement>, 'ref' | 'onChange' | 'as'>) {
-  const enforcer = (nextUserInput: string) => {
-    if (nextUserInput === '' || inputRegex.test(escapeRegExp(nextUserInput))) {
-      onUserInput(nextUserInput)
-    }
-  }
+  const [val, setValue] = useState(value)
 
   return (
     <StyledInput
       {...rest}
-      value={value}
-      onChange={event => {
-        // replace commas with periods, because uniswap exclusively uses period as the decimal separator
-        enforcer(event.target.value.replace(/,/g, '.'))
-      }}
+      value={val}
+      active={active}
+      onChange={event => setValue(event.target.value)}
+      onBlur={event => onUserInput(event.target.value)}
       // universal input options
       inputMode="decimal"
-      title="Token Amount"
       autoComplete="off"
       autoCorrect="off"
       // text-specific options
       type="text"
-      pattern="^[0-9]*[.,]?[0-9]*$"
+      pattern="^[0-9]*$"
       placeholder={placeholder || '0.0'}
       minLength={1}
-      maxLength={79}
+      maxLength={6}
       spellCheck="false"
     />
   )
