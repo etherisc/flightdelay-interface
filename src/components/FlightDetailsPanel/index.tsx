@@ -54,7 +54,11 @@ const InputRow = styled.div`
   padding: 0.75rem 0.5rem 0.75rem 1rem;
 `
 
-export default function FlightDetailsPanel({ id }: { id: string }) {
+interface FlightDetailsPanelProps {
+  id: string
+}
+
+export default function FlightDetailsPanel({ id }: FlightDetailsPanelProps) {
   const { t } = useTranslation()
 
   const theme = useContext(ThemeContext)

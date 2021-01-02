@@ -79,7 +79,7 @@ export default function Apply() {
               onDepartureInput={handleDepartureInput}
               id="carrier-select-input"
             />
-            {showFlightDetails ? <FlightDetailsPanel flight={flight} id="flight-details-input-2" /> : null}
+            {showFlightDetails ? <FlightDetailsPanel id="flight-details-input-2" /> : null}
             <QuoteDetailsPanel id="flight-details-input-2" />
           </AutoColumn>
           <BottomGrouping>

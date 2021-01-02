@@ -4,7 +4,6 @@ import { darken } from 'polished'
 import { RowBetween } from '../Row'
 import { TYPE } from '../../theme'
 import { useTranslation } from 'react-i18next'
-import { Flight } from '../../entities/flight'
 
 const InputPanel = styled.div<{ hideInput?: boolean }>`
   ${({ theme }) => theme.flexColumnNoWrap}
@@ -55,11 +54,10 @@ const InputRow = styled.div`
 `
 
 interface QuoteDetailsPanelProps {
-  flight: Flight
   id: string
 }
 
-export default function QuoteDetailsPanel({ flight, id }: QuoteDetailsPanelProps) {
+export default function QuoteDetailsPanel({ id }: QuoteDetailsPanelProps) {
   const { t } = useTranslation()
 
   const theme = useContext(ThemeContext)
