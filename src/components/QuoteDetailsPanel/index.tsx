@@ -4,6 +4,8 @@ import { darken } from 'polished'
 import { RowBetween } from '../Row'
 import { TYPE } from '../../theme'
 import { useTranslation } from 'react-i18next'
+import { useFlightDetailsState } from '../../state/flightDetails/hooks'
+import { useApplyState } from '../../state/apply/hooks'
 
 const InputPanel = styled.div<{ hideInput?: boolean }>`
   ${({ theme }) => theme.flexColumnNoWrap}
@@ -60,6 +62,8 @@ interface QuoteDetailsPanelProps {
 export default function QuoteDetailsPanel({ id }: QuoteDetailsPanelProps) {
   const { t } = useTranslation()
 
+  const flightDetails = useFlightDetailsState()
+  const apply = useApplyState()
   const theme = useContext(ThemeContext)
 
   return (
@@ -74,18 +78,9 @@ export default function QuoteDetailsPanel({ id }: QuoteDetailsPanelProps) {
                 </TYPE.body>
               </RowBetween>
             </LabelRow>
-            <InputRow>22.00 xDai</InputRow>
+            <InputRow>${apply.premium} xDai</InputRow>
           </InputColumn>
-          <InputColumn>
-            <LabelRow>
-              <RowBetween>
-                <TYPE.body color={theme.text2} fontWeight={500} fontSize={14}>
-                  {t('fdd.priceInclCancellation')}
-                </TYPE.body>
-              </RowBetween>
-            </LabelRow>
-            <InputRow>25.00 xDai</InputRow>
-          </InputColumn>
+          <></>
           <InputColumn>
             <LabelRow>
               <RowBetween>
@@ -106,7 +101,7 @@ export default function QuoteDetailsPanel({ id }: QuoteDetailsPanelProps) {
                 </TYPE.body>
               </RowBetween>
             </LabelRow>
-            <InputRow>382.00 xDai</InputRow>
+            <InputRow>${flightDetails.quote.quoteDelayed} xDai</InputRow>
           </InputColumn>
           <InputColumn>
             <LabelRow>
@@ -116,7 +111,7 @@ export default function QuoteDetailsPanel({ id }: QuoteDetailsPanelProps) {
                 </TYPE.body>
               </RowBetween>
             </LabelRow>
-            <InputRow>525.00 xDai</InputRow>
+            <InputRow>${flightDetails.quote.quoteCancelled} xDai</InputRow>
           </InputColumn>
         </Grid>
       </Container>

@@ -16,6 +16,7 @@ import { Moment } from 'moment'
 import styled from 'styled-components'
 import Logo from '../../assets/images/2020_Etherisc_FlightDelayProtection.svg'
 import { isDefinedFlight } from '../../entities/flight'
+import { useFlightDetailsState } from '../../state/flightDetails/hooks'
 
 const Wrapper = styled.div`
   position: relative;
@@ -30,6 +31,7 @@ const DialogTitle = styled.div`
 `
 export default function Apply() {
   const { t } = useTranslation()
+  const flightDetails = useFlightDetailsState()
 
   const { account } = useActiveWeb3React()
 
@@ -63,6 +65,7 @@ export default function Apply() {
   )
 
   const showFlightDetails = isDefinedFlight(flight)
+  const showQuote = isDefinedFlight(flight) && flightDetails.hasFlights
 
   return (
     <>
@@ -80,7 +83,7 @@ export default function Apply() {
               id="carrier-select-input"
             />
             {showFlightDetails ? <FlightDetailsPanel id="flight-details-input-2" /> : null}
-            <QuoteDetailsPanel id="flight-details-input-2" />
+            {showQuote ? <QuoteDetailsPanel id="flight-details-input-2" /> : null}
           </AutoColumn>
           <BottomGrouping>
             {!account ? (

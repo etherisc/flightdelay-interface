@@ -69,7 +69,7 @@ export default function FlightDetailsPanel({ id }: FlightDetailsPanelProps) {
   }
 
   function probabilityLate() {
-    const prob = (1 - flightDetails.rating.ontime / flightDetails.rating.observations) * 100
+    const prob = (flightDetails.rating.late45 / flightDetails.rating.observations) * 100
     return prob.toFixed(2)
   }
 

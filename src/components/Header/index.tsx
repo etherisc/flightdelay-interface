@@ -1,4 +1,4 @@
-import { ChainId /*, TokenAmount */ } from '@uniswap/sdk'
+// import { ChainId /*, TokenAmount */ } from '@uniswap/sdk'
 import React from 'react'
 import { Text } from 'rebass'
 import { NavLink } from 'react-router-dom'
@@ -190,11 +190,8 @@ const StyledNavLink = styled(NavLink).attrs({
   }
 `
 
-const NETWORK_LABELS: { [chainId in ChainId]?: string } = {
-  [ChainId.RINKEBY]: 'Rinkeby',
-  [ChainId.ROPSTEN]: 'Ropsten',
-  [ChainId.GÖRLI]: 'Görli',
-  [ChainId.KOVAN]: 'Kovan'
+const NETWORK_LABELS = (chainId: string | any) => {
+  return chainId === 77 ? 'Sokol' : chainId === 100 ? 'xDai' : ''
 }
 
 export default function Header() {
@@ -220,8 +217,8 @@ export default function Header() {
       <HeaderControls>
         <HeaderElement>
           <HideSmall>
-            {chainId && NETWORK_LABELS[chainId] && (
-              <NetworkCard title={NETWORK_LABELS[chainId]}>{NETWORK_LABELS[chainId]}</NetworkCard>
+            {chainId && NETWORK_LABELS(chainId) && (
+              <NetworkCard title={NETWORK_LABELS(chainId)}>{NETWORK_LABELS(chainId)}</NetworkCard>
             )}
           </HideSmall>
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>

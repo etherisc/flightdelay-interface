@@ -9,6 +9,7 @@ export interface FlightDetails {
   origin: Airport
   destination: Airport
   rating: any
+  quote: any
   pending: boolean
   hasFlights: boolean
   errorMessage: string
@@ -19,12 +20,13 @@ const initialState: FlightDetails = {
   origin: { iata: '', name: '' },
   destination: { iata: '', name: '' },
   rating: {},
+  quote: {},
   pending: false,
   hasFlights: false,
   errorMessage: ''
 }
 
-function extractDetails(flight: Flight, flightDetails: any, flightRatings: any): FlightDetails {
+function extractDetails(flight: Flight, flightDetails: any, rating: any, quote: any): FlightDetails {
   function airport(iata: string) {
     if (flightDetails.appendix && flightDetails.appendix.airports && flightDetails.appendix.airports.length > 0) {
       const airport = flightDetails.appendix.airports.filter((airport: any) => airport.iata === iata)
@@ -32,18 +34,19 @@ function extractDetails(flight: Flight, flightDetails: any, flightRatings: any):
     } else return ''
   }
 
+  const quotes = quote.payoutOptions.split(',').map((item: string) => parseInt(item))
+
   let result: any = {}
-  if (
-    !flightDetails.scheduledFlights ||
-    flightDetails.scheduledFlights.length === 0 ||
-    !flightRatings.ratings ||
-    flightRatings.ratings.length === 0
-  ) {
+  if (!flightDetails.scheduledFlights || flightDetails.scheduledFlights.length === 0 || !rating) {
     result.hasFlights = false
   } else {
     const firstFlight = flightDetails.scheduledFlights[0]
     result = {
-      rating: flightRatings.ratings[0],
+      rating,
+      quote: {
+        quoteDelayed: (quotes[2] / 100).toFixed(2),
+        quoteCancelled: (quotes[3] / 100).toFixed(2)
+      },
       flight: {
         ...flight,
         departureDateTime: moment(firstFlight.departureTime),
@@ -69,7 +72,11 @@ export default createReducer(initialState, builder =>
     .addCase(fetchFlightDetails.pending, state => {
       state.pending = true
     })
-    .addCase(fetchFlightDetails.fulfilled, (state, { payload: { flight, flightDetails, flightRatings } }) => {
-      return extractDetails(flight, flightDetails, flightRatings)
+    .addCase(fetchFlightDetails.fulfilled, (state, { payload: { flight, flightDetails, rating, quote } }) => {
+      return extractDetails(flight, flightDetails, rating, quote)
+    })
+    .addCase(fetchFlightDetails.rejected, state => {
+      state.pending = false
+      state.hasFlights = false
     })
 )

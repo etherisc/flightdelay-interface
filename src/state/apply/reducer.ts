@@ -7,12 +7,14 @@ export interface ApplyState {
   readonly flight: Flight
   readonly origin: Airport
   readonly destination: Airport
+  readonly premium: string
 }
 
 const initialState: ApplyState = {
   flight: { carrier: { iata: '', name: '' }, flightNumber: '', departureDate: null },
   origin: { iata: '', name: '' },
-  destination: { iata: '', name: '' }
+  destination: { iata: '', name: '' },
+  premium: '15.00'
 }
 
 export default createReducer<ApplyState>(initialState, builder =>
