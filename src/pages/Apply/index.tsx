@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { ButtonLight } from '../../components/Button'
+import { ButtonError, ButtonLight } from '../../components/Button'
 import { AutoColumn } from '../../components/Column'
 
 import { useActiveWeb3React } from '../../hooks'
@@ -71,6 +71,9 @@ export default function Apply() {
     <>
       <AppBody>
         <Wrapper id="apply-page">
+          {/* see https://github.com/Uniswap/uniswap-interface/blob/2291e3ec2015a1967d56e420d4e68ec1fd4e97db/src/pages/Swap/index.tsx#L305
+          <ConfirmPurchaseModal></ConfirmPurchaseModal>
+          */}
           <AutoColumn gap={'md'}>
             <DialogTitle>
               <img width={'400px'} src={Logo} alt="logo" />
@@ -89,7 +92,8 @@ export default function Apply() {
             {!account ? (
               <ButtonLight onClick={toggleWalletModal}>{t('connectWallet')}</ButtonLight>
             ) : (
-              <ButtonLight onClick={toggleWalletModal}>{t('fdd.applyForPolicy')}</ButtonLight>
+              // https://github.com/Uniswap/uniswap-interface/blob/master/src/pages/Swap/index.tsx line 440 ff.
+              <ButtonError disabled={!showQuote} onClick={toggleWalletModal}>{t('fdd.applyForPolicy')}</ButtonError>
             )}
           </BottomGrouping>
         </Wrapper>
