@@ -43,6 +43,7 @@
     "carrier": "Fluglinie",
     "carrierName": "Fluglinie",
     "carrierSearchPlaceholder": "Suche nach Namen oder Kürzel",
+    "confirmPurchase": "Kauf bestätigen",
     "delay45m": "Flug > 45 min. verspätet",
     "delayCancel": "Flug gecancelt",
     "departure": "Abflugdatum",
@@ -57,6 +58,7 @@
     "priceDelayOnly": "Nur Absicherung von Verspätung",
     "priceInclCancellation": "Absicherung von Verspätung und Löschung",
     "probability": "Wahrscheinlichkeit",
+    "purchaseProtection": "Absicherung kaufen",
     "selectCarrier": "Fluglinie auswählen",
     "termsAndConditions": "Geschäftsbedingungen"
   },

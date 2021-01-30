@@ -43,6 +43,7 @@
     "carrier": "Airline",
     "carrierName": "Airline",
     "carrierSearchPlaceholder": "Search by name or symbol",
+    "confirmPurchase": "Confirm Purchase",
     "delay45m": "Flight > 45 min. delayed",
     "delayCancel": "Flight cancelled",
     "departure": "Date of departure",
@@ -57,6 +58,7 @@
     "priceDelayOnly": "Premium",
     "priceInclCancellation": "Premium",
     "probability": "probability",
+    "purchaseProtection": "Purchase protection",
     "selectCarrier": "Select airline",
     "termsAndConditions": "Terms & Conditions"
   },
