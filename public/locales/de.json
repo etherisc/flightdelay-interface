@@ -107,6 +107,7 @@
   "outPool": "vom Liquiditätspool.",
   "output": "Output",
   "pending": "hängige",
+  "pendingTransactionText": "Bitte warten, bis die Transaktion verarbeitet ist.",
   "pool": "Pool",
   "poolTokens": "Pool Tokens",
   "priceChange": "Geschätzter Wechselkursrutsch",

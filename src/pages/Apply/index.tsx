@@ -37,7 +37,8 @@ const DialogTitle = styled.div`
 export default function Apply() {
   const { t } = useTranslation()
   const flightDetails = useFlightDetailsState()
-  const premium = '15000000000000000000'
+  const premium = '15.00'
+  const purchase = { flightDetails, premium }
 
   const { account } = useActiveWeb3React()
 
@@ -50,7 +51,7 @@ export default function Apply() {
   const { onCarrierSelection, onFlightNumberInput, onDepartureInput } = useApplyActionHandlers()
 
   // the callback to execute the purchase
-  const { callback: purchaseCallback } = usePurchaseCallback({ flightDetails, premium })
+  const { callback: purchaseCallback } = usePurchaseCallback(purchase)
 
   // modal and loading
   const [{ showConfirm, attemptingTxn, txHash, purchaseErrorMessage }, setPurchaseState] = useState<{
@@ -117,6 +118,7 @@ export default function Apply() {
       <AppBody>
         <Wrapper id="apply-page">
           <ConfirmPurchaseModal
+            purchase={purchase}
             onConfirm={handlePurchase}
             onDismiss={handleConfirmDismiss}
             isOpen={showConfirm}

@@ -16,7 +16,7 @@ export enum PurchaseCallbackState {
 }
 
 // TODO: Use addressresolver or API call
-const FlightDelayContractAddress = '0xc19C7F5A4bdaAC5db399cD6eabB22DdB83720F0F'
+const FlightDelayContractAddress = '0xaf7f09e99501b30306988141A8c2Cfb14c0Fd8CC'
 
 interface PurchaseParameters {
   /**
@@ -33,7 +33,7 @@ interface PurchaseParameters {
   value: string
 }
 
-interface Purchase {
+export interface Purchase {
   flightDetails: FlightDetails
   premium: string
 }
@@ -61,18 +61,25 @@ type EstimatedPurchaseCall = SuccessfulCall | FailedCall
 
 function usePurchaseCallArguments(purchase: Purchase): PurchaseCall | null {
   const { account, library } = useActiveWeb3React()
-
   const toHex = (arg: string | number) => BigNumber.from(arg).toHexString()
-  const toWei = (arg: string | number) => parseUnits(BigNumber.from(arg).toString()).toHexString()
-
+  const toWei = (arg: string) => parseUnits(arg).toHexString()
   return useMemo(() => {
+    if (!purchase || !purchase.flightDetails || !purchase.flightDetails.hasFlights) {
+      return null
+    }
     const {
       flightDetails: {
         quote,
-        flight: { carrier, flightNumber, arrivalDateTime, departureDateTime }
+        flight: {
+          carrier: { iata },
+          flightNumber,
+          arrivalDateTime,
+          departureDateTime
+        }
       },
       premium
     } = purchase
+
     if (!arrivalDateTime || !departureDateTime) {
       return null
     }
@@ -84,13 +91,13 @@ function usePurchaseCallArguments(purchase: Purchase): PurchaseCall | null {
     const parameters = {
       methodName: 'applyForPolicy',
       args: [
-        formatBytes32String(`${carrier}/${flightNumber}`), // carrierFlight
+        formatBytes32String(`${iata}/${flightNumber}`), // carrierFlight
         formatBytes32String(departureDateTime.format('YYYY/MM/DD')), // yearMonthDay TODO: check for UTC consistency
         toHex(departureDateTime.unix()), // departureTime TODO: check for UTC consistency
         toHex(arrivalDateTime.unix()), // arrivalTime TODO: check for UTC consistency
-        [0, 0, 0, parseFloat(quote.quoteDelayed), parseFloat(quote.quoteCancelled)].map(toWei) // payoutOptions
+        ['0', '0', '0', quote.quoteDelayed, quote.quoteCancelled].map(toWei) // payoutOptions
       ],
-      value: premium
+      value: toWei(premium)
     }
 
     if (!library || !account) return null
@@ -166,19 +173,27 @@ export function usePurchaseCallback(
           })
 
         if ('error' in estimatedPurchaseCall) {
-          console.log(estimatedPurchaseCall.error)
+          console.debug('Error in estimatePurchaseCall, error=', estimatedPurchaseCall.error)
           throw estimatedPurchaseCall.error
         }
 
         // now everything is prepared, execute the call
-        console.log(value, account, estimatedPurchaseCall)
         return contract[methodName](...args, {
           gasLimit: calculateGasMargin(estimatedPurchaseCall.gasEstimate),
           ...(value && !isZero(value) ? { value, from: account } : { from: account })
         })
           .then((response: any) => {
-            const summary = `Purchase insurance for xxx` // TODO: Add purchase details
-            console.log(summary)
+            const {
+              flightDetails: {
+                flight: {
+                  carrier: { iata: carrierIata },
+                  flightNumber,
+                  departureDateTime
+                }
+              }
+            } = purchase
+            const departureYMD = departureDateTime ? `on ${departureDateTime.format('DD/MM/YYYY')}` : ''
+            const summary = `Purchase insurance for ${carrierIata} ${flightNumber} ${departureYMD}`
             addTransaction(response, {
               summary
             })
@@ -191,7 +206,6 @@ export function usePurchaseCallback(
               throw new Error('Transaction rejected.')
             } else {
               // otherwise, the error was unexpected and we need to convey that
-              console.log(account, chainId, library)
               console.error(`Purchase failed`, error, methodName, args, value)
               throw new Error(`Purchase failed: ${error.message}`)
             }
@@ -199,5 +213,5 @@ export function usePurchaseCallback(
       },
       error: null
     }
-  }, [purchaseCall, library, account, chainId, addTransaction])
+  }, [purchase, purchaseCall, library, account, chainId, addTransaction])
 }

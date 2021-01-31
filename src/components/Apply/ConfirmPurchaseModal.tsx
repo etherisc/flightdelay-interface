@@ -5,8 +5,11 @@ import TransactionConfirmationModal, {
 } from '../TransactionConfirmationModal'
 import PurchaseModalFooter from './PurchaseModalFooter'
 import PurchaseModalHeader from './PurchaseModalHeader'
+import { Purchase } from '../../hooks/usePurchaseCallback'
+import { useTranslation } from 'react-i18next'
 
-export default function ConfirmSwapModal({
+export default function ConfirmPurchaseModal({
+  purchase,
   onConfirm,
   onDismiss,
   isOpen,
@@ -14,6 +17,7 @@ export default function ConfirmSwapModal({
   txHash,
   purchaseErrorMessage
 }: {
+  purchase: Purchase
   onConfirm: () => void
   onDismiss: () => void
   isOpen: boolean
@@ -21,16 +25,18 @@ export default function ConfirmSwapModal({
   txHash: string | undefined
   purchaseErrorMessage: string | undefined
 }) {
+  const { t } = useTranslation()
+
   const modalHeader = useCallback(() => {
-    return <PurchaseModalHeader />
-  }, [])
+    return <PurchaseModalHeader purchase={purchase} />
+  }, [purchase])
 
   const modalBottom = useCallback(() => {
-    return <PurchaseModalFooter onConfirm={onConfirm} />
-  }, [onConfirm])
+    return <PurchaseModalFooter purchase={purchase} onConfirm={onConfirm} />
+  }, [onConfirm, purchase])
 
   // text to show while loading
-  const pendingText = `Pending Text ... shown while loading`
+  const pendingText = t('pendingTransactionText')
 
   const confirmationContent = useCallback(
     () =>

@@ -1,18 +1,17 @@
 import React, { useContext } from 'react'
 import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components'
-// import { TYPE } from '../../theme'
 import { ButtonError } from '../Button'
 import { AutoColumn } from '../Column'
-// import QuestionHelper from '../QuestionHelper'
 import { AutoRow, RowBetween } from '../Row'
 import { useTranslation } from 'react-i18next'
+import { Purchase } from '../../hooks/usePurchaseCallback'
 
-export default function PurchaseModalFooter({ onConfirm }: { onConfirm: () => void }) {
+export default function PurchaseModalFooter({ purchase, onConfirm }: { purchase: Purchase; onConfirm: () => void }) {
   const { t } = useTranslation()
 
   const theme = useContext(ThemeContext)
-
+  const { premium } = purchase
   return (
     <>
       <AutoColumn gap="0px">
@@ -32,7 +31,7 @@ export default function PurchaseModalFooter({ onConfirm }: { onConfirm: () => vo
               paddingLeft: '10px'
             }}
           >
-            15.00 xDai
+            {`${premium} xDai`}
           </Text>
         </RowBetween>
       </AutoColumn>

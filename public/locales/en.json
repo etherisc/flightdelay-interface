@@ -107,6 +107,7 @@
   "outPool": "from the liquidity pool.",
   "output": "Output",
   "pending": "Pending",
+  "pendingTransactionText": "Please wait while the transaction is processed.",
   "pool": "Pool",
   "poolTokens": "Pool Tokens",
   "priceChange": "Expected price slippage",
