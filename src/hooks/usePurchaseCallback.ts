@@ -7,12 +7,16 @@ import { calculateGasMargin, getContract } from '../utils'
 import isZero from '../utils/isZero'
 import { useActiveWeb3React } from './index'
 import { FlightDetails } from '../state/flightDetails/reducer'
+import { abi } from './FlightDelayAbi.json'
 
 export enum PurchaseCallbackState {
   INVALID,
   LOADING,
   VALID
 }
+
+// TODO: Use addressresolver or API call
+const FlightDelayContractAddress = '0xc19C7F5A4bdaAC5db399cD6eabB22DdB83720F0F'
 
 interface PurchaseParameters {
   /**
@@ -58,66 +62,45 @@ type EstimatedPurchaseCall = SuccessfulCall | FailedCall
 function usePurchaseCallArguments(purchase: Purchase): PurchaseCall | null {
   const { account, library } = useActiveWeb3React()
 
-  const th = (arg: string | number) => BigNumber.from(arg).toHexString()
+  const toHex = (arg: string | number) => BigNumber.from(arg).toHexString()
   const toWei = (arg: string | number) => parseUnits(BigNumber.from(arg).toString()).toHexString()
 
   return useMemo(() => {
-    const abi = [
-      {
-        inputs: [
-          {
-            internalType: 'bytes32',
-            name: '_carrierFlightNumber',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'bytes32',
-            name: '_departureYearMonthDay',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'uint256',
-            name: '_departureTime',
-            type: 'uint256'
-          },
-          {
-            internalType: 'uint256',
-            name: '_arrivalTime',
-            type: 'uint256'
-          },
-          {
-            internalType: 'uint256[]',
-            name: '_payoutOptions',
-            type: 'uint256[]'
-          }
-        ],
-        name: 'applyForPolicy',
-        outputs: [],
-        stateMutability: 'payable',
-        type: 'function',
-        payable: true
-      }
-    ]
+    const {
+      flightDetails: {
+        quote,
+        flight: { carrier, flightNumber, arrivalDateTime, departureDateTime }
+      },
+      premium
+    } = purchase
+    if (!arrivalDateTime || !departureDateTime) {
+      return null
+    }
+    // const departureYearMonthDay = departureDateTime => {
+    //    format YYYY/MM/DD
+    // }
+    // const
+
     const parameters = {
       methodName: 'applyForPolicy',
       args: [
-        formatBytes32String('LH/117'), // carrierFlight
-        formatBytes32String('2021/01/30'), // yearMonthDay
-        th(1612021741), // departureTime
-        th(1612021741), // arrivalTime
-        [0, 0, 0, 15, 15].map(toWei) // payoutOptions
-      ], // TODO
-      value: purchase.premium // TODO
+        formatBytes32String(`${carrier}/${flightNumber}`), // carrierFlight
+        formatBytes32String(departureDateTime.format('YYYY/MM/DD')), // yearMonthDay TODO: check for UTC consistency
+        toHex(departureDateTime.unix()), // departureTime TODO: check for UTC consistency
+        toHex(arrivalDateTime.unix()), // arrivalTime TODO: check for UTC consistency
+        [0, 0, 0, parseFloat(quote.quoteDelayed), parseFloat(quote.quoteCancelled)].map(toWei) // payoutOptions
+      ],
+      value: premium
     }
 
     if (!library || !account) return null
-    const contract: Contract = getContract('0xc19C7F5A4bdaAC5db399cD6eabB22DdB83720F0F', abi, library, account) // TODO: Add address, ABI
+    const contract: Contract = getContract(FlightDelayContractAddress, abi, library, account)
     if (!contract) {
       return null
     }
 
     return { contract, parameters }
-  }, [account, purchase.premium, library])
+  }, [account, purchase, library])
 }
 
 // returns a function that will execute a swap, if the parameters are all valid
