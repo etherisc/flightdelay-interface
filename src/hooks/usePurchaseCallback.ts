@@ -56,7 +56,7 @@ type EstimatedPurchaseCall = SuccessfulCall | FailedCall
  */
 
 function usePurchaseCallArguments(purchase: Purchase): PurchaseCall | null {
-  const { account, chainId, library } = useActiveWeb3React()
+  const { account, library } = useActiveWeb3React()
 
   const th = (arg: string | number) => BigNumber.from(arg).toHexString()
   const toWei = (arg: string | number) => parseUnits(BigNumber.from(arg).toString()).toHexString()

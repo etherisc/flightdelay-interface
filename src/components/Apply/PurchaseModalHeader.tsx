@@ -13,12 +13,12 @@ export default function PurchaseModalHeader() {
       <RowBetween align="flex-end">
         <RowFixed gap={'0px'}>
           <Text fontSize={24} fontWeight={500}>
-            Text 1
+            MUC Munich
           </Text>
         </RowFixed>
         <RowFixed gap={'0px'}>
           <Text fontSize={24} fontWeight={500} style={{ marginLeft: '10px' }}>
-            Text 2
+            LH 117
           </Text>
         </RowFixed>
       </RowBetween>
@@ -28,12 +28,12 @@ export default function PurchaseModalHeader() {
       <RowBetween align="flex-end">
         <RowFixed gap={'0px'}>
           <Text fontSize={24} fontWeight={500}>
-            Text 3
+            FRA Frankfurt
           </Text>
         </RowFixed>
         <RowFixed gap={'0px'}>
           <Text fontSize={24} fontWeight={500} style={{ marginLeft: '10px' }}>
-            Text 4
+            30.01.2021
           </Text>
         </RowFixed>
       </RowBetween>
