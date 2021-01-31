@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { Contract } from '@ethersproject/contracts'
-import { formatBytes32String, defaultAbiCoder, parseUnits } from 'ethers/lib/utils'
+import { defaultAbiCoder, formatBytes32String, parseUnits } from 'ethers/lib/utils'
 import { useMemo } from 'react'
 import { useTransactionAdder } from '../state/transactions/hooks'
 import { calculateGasMargin, getContract } from '../utils'

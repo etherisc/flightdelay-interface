@@ -145,7 +145,7 @@
   "unknownError": "Oops! An unknown error occurred. Please refresh the page, or visit from another browser or device.",
   "unlock": "Unlock",
   "unlockTokenCont": "Please unlock token to continue.",
-  "viewOnEtherscan": "View on Blockscout",
+  "viewOnBlockExplorer": "View on Blockscout",
   "willReceive": "will receive at least",
   "wrongNetwork": "You are on the wrong network",
   "wrongNetwork2": "Wrong Network",

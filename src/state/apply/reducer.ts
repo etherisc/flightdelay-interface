@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { inputFlightNumber, selectCarrier, inputDeparture } from './actions'
+import { inputDeparture, inputFlightNumber, selectCarrier } from './actions'
 import { Flight } from '../../entities/flight'
 import { Airport } from '../../entities/airport'
 

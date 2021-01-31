@@ -5,7 +5,7 @@ import { ThemeContext } from 'styled-components'
 import { ButtonError } from '../Button'
 import { AutoColumn } from '../Column'
 // import QuestionHelper from '../QuestionHelper'
-import { AutoRow, RowBetween /* RowFixed */ } from '../Row'
+import { AutoRow, RowBetween } from '../Row'
 import { useTranslation } from 'react-i18next'
 
 export default function PurchaseModalFooter({ onConfirm }: { onConfirm: () => void }) {

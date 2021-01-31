@@ -10,11 +10,11 @@ import {
   removeSerializedToken,
   SerializedPair,
   SerializedToken,
+  toggleURLWarning,
   updateUserDarkMode,
   updateUserDeadline,
   updateUserExpertMode,
-  updateUserSlippageTolerance,
-  toggleURLWarning
+  updateUserSlippageTolerance
 } from './actions'
 
 function serializeToken(token: Token): SerializedToken {

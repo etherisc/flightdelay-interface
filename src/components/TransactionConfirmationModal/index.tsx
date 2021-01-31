@@ -2,9 +2,8 @@ import { ChainId } from '@uniswap/sdk'
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import Modal from '../Modal'
-import { ExternalLink } from '../../theme'
 import { Text } from 'rebass'
-import { CloseIcon, CustomLightSpinner } from '../../theme/components'
+import { CloseIcon, CustomLightSpinner, ExternalLink } from '../../theme'
 import { RowBetween } from '../Row'
 import { AlertTriangle, ArrowUpCircle } from 'react-feather'
 import { ButtonPrimary } from '../Button'
@@ -13,6 +12,7 @@ import Circle from '../../assets/images/blue-loader.svg'
 
 import { getEtherscanLink } from '../../utils'
 import { useActiveWeb3React } from '../../hooks'
+import { useTranslation } from 'react-i18next'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -70,6 +70,7 @@ function TransactionSubmittedContent({
   chainId: ChainId
 }) {
   const theme = useContext(ThemeContext)
+  const { t } = useTranslation()
 
   return (
     <Wrapper>
@@ -88,7 +89,7 @@ function TransactionSubmittedContent({
           {chainId && hash && (
             <ExternalLink href={getEtherscanLink(chainId, hash, 'transaction')}>
               <Text fontWeight={500} fontSize={14} color={theme.primary1}>
-                View on Blockscout
+                {t('viewOnBlockExplorer')}
               </Text>
             </ExternalLink>
           )}

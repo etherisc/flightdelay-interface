@@ -1,14 +1,14 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { AddressZero } from '@ethersproject/constants'
-import { TokenAmount, Token, ChainId, Percent, JSBI } from '@uniswap/sdk'
+import { ChainId, JSBI, Percent, Token, TokenAmount } from '@uniswap/sdk'
 
 import {
-  getEtherscanLink,
-  calculateSlippageAmount,
-  isAddress,
-  shortenAddress,
+  basisPointsToPercent,
   calculateGasMargin,
-  basisPointsToPercent
+  calculateSlippageAmount,
+  getEtherscanLink,
+  isAddress,
+  shortenAddress
 } from '.'
 
 describe('utils', () => {
