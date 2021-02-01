@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppState } from '../index'
-import { selectCarrier, inputFlightNumber, inputDeparture } from './actions'
+import { inputDeparture, inputFlightNumber, selectCarrier } from './actions'
 import { Carrier } from '../../entities/carrier'
 import { Moment } from 'moment'
 import { fetchDetailsThunk } from '../flightDetails/hooks'

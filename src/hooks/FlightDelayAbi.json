@@ -1,0 +1,38 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "_carrierFlightNumber",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "_departureYearMonthDay",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_departureTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_arrivalTime",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "_payoutOptions",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "applyForPolicy",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function",
+      "payable": true
+    }
+  ]
+}

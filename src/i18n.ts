@@ -14,7 +14,7 @@ i18next
     react: {
       useSuspense: true
     },
-    // debug: true,
+    debug: true,
     fallbackLng: 'en',
     preload: ['en'],
     interpolation: { escapeValue: false }

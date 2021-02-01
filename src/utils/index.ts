@@ -5,7 +5,7 @@ import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers'
 import { BigNumber } from '@ethersproject/bignumber'
 import { abi as IUniswapV2Router02ABI } from '@uniswap/v2-periphery/build/IUniswapV2Router02.json'
 import { ROUTER_ADDRESS } from '../constants'
-import { ChainId, JSBI, Percent, CurrencyAmount } from '@uniswap/sdk'
+import { CurrencyAmount, JSBI, Percent } from '@uniswap/sdk'
 
 // returns the checksummed address if the address is valid, otherwise returns false
 export function isAddress(value: any): string | false {
@@ -16,12 +16,34 @@ export function isAddress(value: any): string | false {
   }
 }
 
+declare enum ChainId {
+  MAINNET = 1,
+  ROPSTEN = 3,
+  RINKEBY = 4,
+  GÖRLI = 5,
+  KOVAN = 42,
+  SOKOL = 77,
+  XDAI = 100
+}
+
 const ETHERSCAN_PREFIXES: { [chainId in ChainId]: string } = {
   1: '',
   3: 'ropsten.',
   4: 'rinkeby.',
   5: 'goerli.',
-  42: 'kovan.'
+  42: 'kovan.',
+  77: '',
+  100: ''
+}
+
+const ETHERSCAN_DOMAIN: { [chainId in ChainId]: string } = {
+  1: 'etherscan.io',
+  3: 'etherscan.io',
+  4: 'etherscan.io',
+  5: 'etherscan.io',
+  42: 'etherscan.io',
+  77: 'blockscout.com/poa/sokol',
+  100: 'blockscout.com/poa/xdai'
 }
 
 export function getEtherscanLink(
@@ -29,8 +51,7 @@ export function getEtherscanLink(
   data: string,
   type: 'transaction' | 'token' | 'address' | 'block'
 ): string {
-  const prefix = `https://${ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]}etherscan.io`
-
+  const prefix = `https://${ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]}${ETHERSCAN_DOMAIN[chainId]}`
   switch (type) {
     case 'transaction': {
       return `${prefix}/tx/${data}`
@@ -39,7 +60,7 @@ export function getEtherscanLink(
       return `${prefix}/token/${data}`
     }
     case 'block': {
-      return `${prefix}/block/${data}`
+      return `${prefix}/${chainId === 77 || chainId === 100 ? 'blocks' : 'block'}/${data}`
     }
     case 'address':
     default: {
