@@ -122,6 +122,7 @@
   "slippageInfo": "\"Your transaction will revert if the price changes unfavorably by more than this percentage.\"",
   "slippageTolerance": "Slippage tolerance",
   "slippageWarning": "Slippage Warning",
+  "stake": "Stake",
   "swap": "Swap",
   "swapAnyway": "Swap Anyway",
   "switchNetwork": "Please switch to {{ correctNetwork }}",

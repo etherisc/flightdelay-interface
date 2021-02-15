@@ -122,6 +122,7 @@
   "slippageInfo": "Ihre Transaktion wird abgebrochen, wenn eine Preisänderung zu Ihren Lasten um mehr als diesen Prozentsatz eintritt.",
   "slippageTolerance": "Slippage Toleranz",
   "slippageWarning": "Wechselkursrutsch",
+  "stake": "Anteil",
   "swap": "Tauschen",
   "swapAnyway": "Trotzdem tauschen",
   "switchNetwork": "Bitte wechsle zum {{ correctNetwork }}",

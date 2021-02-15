@@ -16,7 +16,7 @@ export function isAddress(value: any): string | false {
   }
 }
 
-declare enum ChainId {
+export enum ChainId {
   MAINNET = 1,
   ROPSTEN = 3,
   RINKEBY = 4,
