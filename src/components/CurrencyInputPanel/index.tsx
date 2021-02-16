@@ -82,6 +82,7 @@ interface CurrencyInputPanelProps {
   hideInput?: boolean
   id: string
   customBalanceText?: string
+  max?: string
 }
 
 export default function CurrencyInputPanel({
@@ -95,7 +96,8 @@ export default function CurrencyInputPanel({
   pair = null, // used for double token logo
   hideInput = false,
   id,
-  customBalanceText
+  customBalanceText,
+  max
 }: CurrencyInputPanelProps) {
   // const { t } = useTranslation()
 
@@ -105,7 +107,9 @@ export default function CurrencyInputPanel({
   const selectedCurrencyBalance = useCurrencyBalance(account ?? undefined, currency ?? undefined, contract)
   const theme = useContext(ThemeContext)
 
-  const balance = !selectedCurrencyBalance
+  const balance = max
+    ? max
+    : !selectedCurrencyBalance
     ? undefined
     : typeof selectedCurrencyBalance === 'string'
     ? parseFloat(selectedCurrencyBalance as string).toFixed(6)

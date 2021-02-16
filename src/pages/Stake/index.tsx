@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { ButtonError, ButtonLight } from '../../components/Button'
 import { AutoColumn } from '../../components/Column'
@@ -8,19 +8,20 @@ import { useWalletModalToggle } from '../../state/application/hooks'
 import AppBody from '../AppBody'
 import { useTranslation } from 'react-i18next'
 
-import CurrencyInputPanel from '../../components/CurrencyInputPanel'
-
 import styled from 'styled-components'
 import { Text } from 'rebass'
 
-import { stableTokens, dipToken } from '../../constants/tokens'
-
-import Logo from '../../assets/images/2020_Etherisc_FlightDelayProtection.svg'
 import { GreyCard, LightCard } from 'components/Card'
 import { AutoRow, RowBetween } from 'components/Row'
 import { TYPE } from 'theme'
 import StakeInfo from 'components/Stake/StakeInfo'
-import useAmount from 'hooks/useAmount'
+
+import * as modalModes from 'constants/modalMode.json'
+
+import StakeModal from 'components/Stake/StakeModal'
+import WithdrawModal from 'components/Stake/WithdrawModal'
+
+import { stableTokens, dipToken } from '../../constants/tokens'
 
 const Wrapper = styled.div`
   position: relative;
@@ -34,10 +35,7 @@ const InputColumn = styled.div`
   flex: 1;
 `
 
-const DialogTitle = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
-`
-export default function Apply() {
+export default function Stake() {
   const { t } = useTranslation()
 
   const { account } = useActiveWeb3React()
@@ -45,76 +43,67 @@ export default function Apply() {
   // toggle wallet when disconnected
   const toggleWalletModal = useWalletModalToggle()
 
-  const { daiAmount, dipAmount, setDaiAmount, setDipAmount } = useAmount()
-
   const stable = 'DAI'
 
   const stableAddr = stableTokens[stable]
   const dipAddr = dipToken
 
+  const [modalMode, setModalMode] = useState(modalModes.NONE)
+  const closeModal = () => setModalMode(modalModes.NONE)
+
   return (
     <>
-      <AppBody>
-        <Wrapper id="apply-page">
-          <AutoColumn gap={'md'}>
-            <DialogTitle>
-              <img width={'400px'} src={Logo} alt="logo" />
-            </DialogTitle>
-            <AutoRow gap="5px">
-              <InputColumn>
-                <CurrencyInputPanel
-                  value={daiAmount}
-                  onUserInput={setDaiAmount}
-                  showMaxButton={true}
-                  address={stableAddr}
-                  id="add-liquidity-input-tokena"
-                />
-              </InputColumn>
-              <InputColumn>
-                <CurrencyInputPanel
-                  value={dipAmount}
-                  onUserInput={setDipAmount}
-                  showMaxButton={true}
-                  address={dipAddr}
-                  id="add-liquidity-input-tokenb"
-                />
-              </InputColumn>
-            </AutoRow>
-            <GreyCard padding="0px" borderRadius={'20px'}>
-              <RowBetween padding="1rem">
-                <TYPE.subHeader fontWeight={500} fontSize={14}>
-                  Stake Info
-                </TYPE.subHeader>
-              </RowBetween>{' '}
-              <LightCard padding="1rem" borderRadius={'20px'}>
-                <StakeInfo stableSymbol={stable} />
-              </LightCard>
-            </GreyCard>
-          </AutoColumn>
-          <BottomGrouping>
-            {!account ? (
-              <ButtonLight onClick={toggleWalletModal}>{t('connectWallet')}</ButtonLight>
-            ) : (
-              <ButtonError
-              // onClick={() => {
-              //   setPurchaseState({
-              //     attemptingTxn: false,
-              //     showConfirm: true,
-              //     txHash: undefined,
-              //     purchaseErrorMessage: undefined
-              //   })
-              // }}
-              // id="purchase-button"
-              // disabled={!showQuote}
-              >
-                <Text fontSize={16} fontWeight={500}>
-                  {t('fdd.purchaseProtection')}
-                </Text>
-              </ButtonError>
-            )}
-          </BottomGrouping>
-        </Wrapper>
-      </AppBody>
+      {modalMode === modalModes.STAKE && (
+        <StakeModal closeModal={closeModal} stableAddr={stableAddr} dipAddr={dipAddr} />
+      )}
+      {modalMode === modalModes.WITHDRAW && (
+        <WithdrawModal closeModal={closeModal} stableAddr={stableAddr} dipAddr={dipAddr} />
+      )}
+      {modalMode === modalModes.NONE && (
+        <AppBody>
+          <Wrapper id="stake-page">
+            <AutoColumn gap={'md'}>
+              <TYPE.largeHeader>
+                {t('stake')}/{t('withdraw')}
+              </TYPE.largeHeader>
+              {account && (
+                <GreyCard padding="0px" borderRadius={'20px'}>
+                  <RowBetween padding="1rem">
+                    <TYPE.subHeader fontWeight={500} fontSize={14}>
+                      Stake Info
+                    </TYPE.subHeader>
+                  </RowBetween>{' '}
+                  <LightCard padding="1rem" borderRadius={'20px'}>
+                    <StakeInfo stableSymbol={stable} />
+                  </LightCard>
+                </GreyCard>
+              )}
+            </AutoColumn>
+            <BottomGrouping>
+              {!account ? (
+                <ButtonLight onClick={toggleWalletModal}>{t('connectWallet')}</ButtonLight>
+              ) : (
+                <AutoRow justify="space-between" gap="4px">
+                  <InputColumn>
+                    <ButtonError onClick={() => setModalMode(modalModes.STAKE)}>
+                      <Text fontSize={16} fontWeight={500}>
+                        {t('stake')}
+                      </Text>
+                    </ButtonError>
+                  </InputColumn>
+                  <InputColumn>
+                    <ButtonError onClick={() => setModalMode(modalModes.WITHDRAW)}>
+                      <Text fontSize={16} fontWeight={500}>
+                        {t('withdraw')}
+                      </Text>
+                    </ButtonError>
+                  </InputColumn>
+                </AutoRow>
+              )}
+            </BottomGrouping>
+          </Wrapper>
+        </AppBody>
+      )}
     </>
   )
 }
