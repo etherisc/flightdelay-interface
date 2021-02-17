@@ -107,6 +107,8 @@ export function useStakeCallback(
 
         const options = !value || isZero(value) ? {} : { value }
 
+        console.log('args', args, options)
+
         const estimatedStakeCall: EstimatedStakeCall = await contract.estimateGas[methodName](...args, options)
           .then(gasEstimate => {
             return {
@@ -148,7 +150,8 @@ export function useStakeCallback(
         // now everything is prepared, execute the call
         return contract[methodName](...args, {
           gasLimit: calculateGasMargin(estimatedStakeCall.gasEstimate),
-          from: account
+          from: account,
+          value
         })
           .then((response: any) => {
             const summary = `Staked ${daiAmount}/${dipAmount}`
