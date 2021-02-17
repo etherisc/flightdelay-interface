@@ -9,6 +9,7 @@ import Popups from '../components/Popups'
 import Web3ReactManager from '../components/Web3ReactManager'
 import DarkModeQueryParamReader from '../theme/DarkModeQueryParamReader'
 import Apply from './Apply'
+import Stake from './Stake'
 
 const AppWrapper = styled.div`
   display: flex;
@@ -63,6 +64,7 @@ export default function App() {
           <Web3ReactManager>
             <Switch>
               <Route exact strict path="/apply" component={Apply} />
+              <Route exact strict path="/stake" component={Stake} />
             </Switch>
           </Web3ReactManager>
           <Marginer />

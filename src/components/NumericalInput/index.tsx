@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 const StyledInput = styled.input<{ active?: boolean; align?: string }>`
@@ -54,14 +54,14 @@ export const Input = React.memo(function InnerInput({
   fontSize?: string
   align?: 'right' | 'left'
 } & Omit<React.HTMLProps<HTMLInputElement>, 'ref' | 'onChange' | 'as'>) {
-  const [val, setValue] = useState(value)
-
   return (
     <StyledInput
       {...rest}
-      value={val}
+      value={value}
       active={active}
-      onChange={event => setValue(event.target.value)}
+      onChange={event => {
+        onUserInput(event.target.value)
+      }}
       onBlur={event => onUserInput(event.target.value)}
       // universal input options
       inputMode="decimal"

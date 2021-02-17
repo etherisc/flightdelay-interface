@@ -1,0 +1,1 @@
+export const dipToken = '0x19F6E3F48A7e04C292A2BB0B14312b79c0fa17E6'

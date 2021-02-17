@@ -6,6 +6,7 @@ import { useActiveWeb3React } from '../../hooks'
 import { useMulticallContract } from '../../hooks/useContract'
 import { isAddress } from '../../utils'
 import { useMultipleContractSingleData, useSingleContractMultipleData } from '../multicall/hooks'
+import { Contract } from 'ethers'
 
 /**
  * Returns a map of the given addresses to their eventually consistent ETH balances.
@@ -109,6 +110,16 @@ export function useCurrencyBalances(
       }) ?? [],
     [account, currencies, ethBalance, tokenBalances]
   )
+}
+
+export function useCurrencyBalance(
+  account?: string,
+  currency?: Currency,
+  contract?: Contract
+): CurrencyAmount | string | undefined {
+  const currencyBalance = useCurrencyBalances(account, [currency])[0]
+
+  return currencyBalance
 }
 
 // mimics useAllBalances
