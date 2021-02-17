@@ -1,7 +1,7 @@
 import { Interface, FunctionFragment } from '@ethersproject/abi'
 import { BigNumber } from '@ethersproject/bignumber'
 import { Contract } from '@ethersproject/contracts'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useActiveWeb3React } from '../../hooks'
 import { useBlockNumber } from '../application/hooks'
@@ -234,8 +234,6 @@ export function useSingleCallResult(
   inputs?: OptionalMethodInputs,
   options?: ListenerOptions
 ): CallState {
-  const readerResult = useContractReader(contract, methodName, inputs)
-
   const fragment = useMemo(() => contract?.interface?.getFunction(methodName), [contract, methodName])
 
   const calls = useMemo<Call[]>(() => {
@@ -256,73 +254,5 @@ export function useSingleCallResult(
     return toCallState(result, contract?.interface, fragment, latestBlockNumber)
   }, [result, contract, fragment, latestBlockNumber])
 
-  const { chainId } = useActiveWeb3React()
-
-  if (chainId === 77) {
-    if (readerResult) {
-      return { valid: true, result: [readerResult], loading: false, syncing: false, error: false }
-    }
-    return { valid: false, result: undefined, loading: false, syncing: false, error: true }
-  }
-
   return singleCallResult
-}
-
-export default function usePoller(fn: any, delay: number) {
-  const savedCallback = useRef<any>()
-
-  // Remember the latest fn.
-  useEffect(() => {
-    savedCallback.current = fn
-  }, [fn])
-
-  // Set up the interval.
-  useEffect(() => {
-    function tick() {
-      savedCallback.current()
-    }
-
-    if (delay !== null) {
-      let id = setInterval(tick, delay)
-      return () => clearInterval(id)
-    }
-
-    return () => {}
-  }, [delay])
-
-  //run at start too
-  useEffect(() => {
-    fn()
-  }, [])
-}
-
-export function useContractReader(
-  contract: Contract | null | undefined,
-  methodName: string,
-  inputs?: OptionalMethodInputs
-): BigNumber | string | undefined {
-  const adjustPollTime = 3777
-
-  const [value, setValue] = useState()
-
-  usePoller(async () => {
-    if (contract) {
-      try {
-        let newValue
-        if (inputs && inputs.length) {
-          newValue = await contract[methodName](...inputs)
-        } else {
-          newValue = await contract[methodName]()
-        }
-
-        if (newValue != value) {
-          setValue(newValue)
-        }
-      } catch (e) {
-        console.error(e)
-      }
-    }
-  }, adjustPollTime)
-
-  return value
 }

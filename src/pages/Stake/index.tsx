@@ -21,7 +21,7 @@ import * as modalModes from 'constants/modalMode.json'
 import StakeModal from 'components/Stake/StakeModal'
 import WithdrawModal from 'components/Stake/WithdrawModal'
 
-import { stableTokens, dipToken } from '../../constants/tokens'
+import { dipToken } from '../../constants/tokens'
 
 const Wrapper = styled.div`
   position: relative;
@@ -43,9 +43,7 @@ export default function Stake() {
   // toggle wallet when disconnected
   const toggleWalletModal = useWalletModalToggle()
 
-  const stable = 'DAI'
-
-  const stableAddr = stableTokens[stable]
+  const stableAddr = 'ETH'
   const dipAddr = dipToken
 
   const [modalMode, setModalMode] = useState(modalModes.NONE)
@@ -74,7 +72,7 @@ export default function Stake() {
                     </TYPE.subHeader>
                   </RowBetween>{' '}
                   <LightCard padding="1rem" borderRadius={'20px'}>
-                    <StakeInfo stableSymbol={stable} />
+                    <StakeInfo stableSymbol={'DAI'} />
                   </LightCard>
                 </GreyCard>
               )}

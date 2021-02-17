@@ -9,8 +9,6 @@ import { Input as NumericalInput } from '../NumericalInput'
 
 import { useActiveWeb3React } from '../../hooks'
 import { useCurrency } from 'hooks/Tokens'
-import { getContract } from 'utils'
-import { ERC20_ABI } from 'constants/abis/erc20'
 // import { useTranslation } from 'react-i18next'
 
 const InputRow = styled.div<{ selected: boolean }>`
@@ -101,11 +99,18 @@ export default function CurrencyInputPanel({
 }: CurrencyInputPanelProps) {
   // const { t } = useTranslation()
 
-  const { library, account } = useActiveWeb3React()
+  const { account } = useActiveWeb3React()
   const currency = useCurrency(address)
-  const contract = address && library && account ? getContract(address, ERC20_ABI, library, account) : undefined
-  const selectedCurrencyBalance = useCurrencyBalance(account ?? undefined, currency ?? undefined, contract)
+  // const contract =
+  //   address && isAddress(address) && library && account ? getContract(address, ERC20_ABI, library, account) : undefined
+
+  const selectedCurrencyBalance = useCurrencyBalance(account ?? undefined, currency ?? undefined, undefined)
+  // const ethBalance = useETHBalances(address === 'ETH' ? [account || undefined] : [])
+  // const selectedCurrencyBalance = address === 'ETH' ? ethBalance : currencyBalance
+
   const theme = useContext(ThemeContext)
+
+  console.log('selected balance', address, selectedCurrencyBalance)
 
   const balance = max
     ? max
@@ -155,7 +160,7 @@ export default function CurrencyInputPanel({
               )}
             </>
           )}
-          {currency?.symbol}
+          {address === 'ETH' ? 'SPOA' : currency?.symbol}
         </InputRow>
       </Container>
     </InputPanel>

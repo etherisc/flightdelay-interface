@@ -5,9 +5,8 @@ import { useAllTokens } from '../../hooks/Tokens'
 import { useActiveWeb3React } from '../../hooks'
 import { useMulticallContract } from '../../hooks/useContract'
 import { isAddress } from '../../utils'
-import { useContractReader, useMultipleContractSingleData, useSingleContractMultipleData } from '../multicall/hooks'
+import { useMultipleContractSingleData, useSingleContractMultipleData } from '../multicall/hooks'
 import { Contract } from 'ethers'
-import { formatEther } from 'ethers/lib/utils'
 
 /**
  * Returns a map of the given addresses to their eventually consistent ETH balances.
@@ -118,16 +117,8 @@ export function useCurrencyBalance(
   currency?: Currency,
   contract?: Contract
 ): CurrencyAmount | string | undefined {
-  const { chainId } = useActiveWeb3React()
   const currencyBalance = useCurrencyBalances(account, [currency])[0]
-  const balanceAmount = useContractReader(contract, 'balanceOf', [account ?? undefined])
 
-  if (chainId === 77) {
-    if (balanceAmount) {
-      return formatEther(balanceAmount)
-    }
-    return undefined
-  }
   return currencyBalance
 }
 

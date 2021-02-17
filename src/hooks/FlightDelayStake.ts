@@ -74,7 +74,7 @@ function useStakeCallArguments(stake: Stake): StakeCall | null {
     }
 
     return { contract, parameters }
-  }, [account, stake, library])
+  }, [account, isStake, daiAmount, dipAmount, library])
 }
 
 // returns a function that will stake, if the parameters are all valid
@@ -275,14 +275,13 @@ export function useStakeBalance() {
   const { result } = useSingleCallResult(contract, 'getStake', [account ?? undefined])
 
   return useMemo(() => {
-    const data = result?.[0]
-    if (data) {
-      const [stableBalance, dipBalance] = data
+    if (result) {
+      const [stableBalance, dipBalance] = result
       return [formatEther(stableBalance), formatEther(dipBalance)]
     } else {
       return []
     }
-  }, [account, library, result])
+  }, [result])
 }
 
 export function useRequiredDip(daiAmount: string) {
@@ -298,7 +297,7 @@ export function useRequiredDip(daiAmount: string) {
     } else {
       return daiAmount
     }
-  }, [account, library, result])
+  }, [result, daiAmount])
 }
 
 export function useDaiAmountLocked() {
@@ -314,7 +313,7 @@ export function useDaiAmountLocked() {
     } else {
       return '0'
     }
-  }, [account, library, result])
+  }, [result])
 }
 
 export function useUnprocessedUnStakeRequest() {
@@ -330,5 +329,5 @@ export function useUnprocessedUnStakeRequest() {
     } else {
       return '0'
     }
-  }, [account, library, result])
+  }, [result])
 }
