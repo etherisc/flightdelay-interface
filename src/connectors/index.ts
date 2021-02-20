@@ -27,7 +27,7 @@ export function getNetworkLibrary(): Web3Provider {
 }
 
 export const injected = new InjectedConnector({
-  supportedChainIds: [100, 77] // [1, 3, 4, 5, 42] we are on xDai or Sokol
+  supportedChainIds: [/* 100, */ 77] // [1, 3, 4, 5, 42] we are on xDai or Sokol
 })
 
 // mainnet only
