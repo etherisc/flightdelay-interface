@@ -1,5 +1,5 @@
 // import { transparentize } from 'polished'
-import Background from '../assets/images/aboveTheClouds.jpg'
+import Background from '../assets/images/FlightDelayBackgroundDesktop.png'
 import React, { useMemo } from 'react'
 import styled, {
   createGlobalStyle,
