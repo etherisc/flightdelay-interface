@@ -1,5 +1,6 @@
 // import { transparentize } from 'polished'
 import Background from '../assets/images/FlightDelayBackgroundDesktop.png'
+import BackgroundMobile from '../assets/images/FlightDelayBackgroundMobile.png'
 import React, { useMemo } from 'react'
 import styled, {
   createGlobalStyle,
@@ -45,7 +46,7 @@ export function colors(darkMode: boolean): Colors {
     text1: darkMode ? '#FFFFFF' : '#000000',
     text2: darkMode ? '#C3C5CB' : '#565A69',
     text3: darkMode ? '#6C7284' : '#888D9B',
-    text4: darkMode ? '#565A69' : '#C3C5CB',
+    text4: darkMode ? '#565A69' : '#565A69',
     text5: darkMode ? '#2C2F36' : '#EDEEF2',
 
     // backgrounds / greys
@@ -60,17 +61,17 @@ export function colors(darkMode: boolean): Colors {
     advancedBG: darkMode ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.6)',
 
     //primary colors
-    primary1: darkMode ? '#ff007a' : '#2172E5',
+    primary1: darkMode ? '#f8b93a' : '#5081f4',
     primary2: darkMode ? '#FF8CC3' : '#3680E7',
     primary3: darkMode ? '#FF99C9' : '#4D8FEA',
     primary4: darkMode ? '#376bad70' : '#F6F6F6',
     primary5: darkMode ? '#153d6f70' : '#EAEAEA',
 
     // color text
-    primaryText1: darkMode ? '#ff007a' : '#6da8ff',
+    primaryText1: darkMode ? '#f8b93a' : '#6da8ff',
 
     // secondary colors
-    secondary1: darkMode ? '#ff007a' : '#2172E5',
+    secondary1: darkMode ? '#f8b93a' : '#5081f4',
     secondary2: darkMode ? '#17000b26' : '#F6F6F6',
     secondary3: darkMode ? '#17000b26' : '#EAEAEA',
 
@@ -80,7 +81,7 @@ export function colors(darkMode: boolean): Colors {
     green1: '#27AE60',
     yellow1: '#FFE270',
     yellow2: '#F3841E',
-    blue1: '#2172E5'
+    blue1: '#5081f4'
 
     // dont wanna forget these blue yet
     // blue4: darkMode ? '#153d6f70' : '#C4D9F8',
@@ -230,5 +231,8 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url('${Background}');
+  @media (max-width: 600px){
+    background-image: url ('${BackgroundMobile}')
+  }
 }
 `
