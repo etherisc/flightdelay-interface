@@ -25,7 +25,7 @@ export async function getFlightSchedule(flight: Flight) {
   if (!response.ok) throw new Error(`Failed to get flight Details ${apiURL}`)
 
   const json = await response.json()
-
+  console.log(json)
   return json
 }
 
@@ -47,9 +47,7 @@ export async function getFlightRatings(flight: Flight) {
 
   if (!response.ok) throw new Error(`Failed to get flight ratings ${apiURL}`)
 
-  const json = await response.json()
-
-  return json
+  return await response.json()
 }
 
 export async function getFlightQuote(premium: string, flight: Flight) {
@@ -57,7 +55,9 @@ export async function getFlightQuote(premium: string, flight: Flight) {
     return {}
   }
 
-  const premiumAmount = (Number(premium) * 100).toFixed(2)
+  const premiumAmount = `${Number(premium)
+    .toFixed(0)
+    .toString()}00`
   const { carrier, flightNumber } = flight
 
   const apiURL = `${flightStatsBaseURL}${flightQuoteEndpoint}/${premiumAmount}/${carrier.iata}/${flightNumber}`
@@ -71,7 +71,5 @@ export async function getFlightQuote(premium: string, flight: Flight) {
 
   if (!response.ok) throw new Error(`Failed to get flight ratings ${apiURL}`)
 
-  const json = await response.json()
-
-  return json
+  return await response.json()
 }

@@ -56,7 +56,7 @@
     "flightNumberPlaceholder": "Flugnummer",
     "origin": "Startflughafen",
     "payoutDelayOnly": "Auszahlung bei Verspätung",
-    "payoutInclCancellation": "Auszahlung bei Löschung des Fluges",
+    "payoutInclCancellation": "Auszahlung bei Löschung",
     "priceDelayOnly": "Nur Absicherung von Verspätung",
     "priceInclCancellation": "Absicherung von Verspätung und Löschung",
     "probability": "Wahrscheinlichkeit",

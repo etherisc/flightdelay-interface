@@ -34,7 +34,7 @@ function extractDetails(flight: Flight, flightDetails: any, rating: any, quote: 
     } else return ''
   }
 
-  const quotes = quote.payoutOptions.split(',').map((item: string) => parseInt(item))
+  const quotes = quote.payoutOptions.map((item: string) => parseFloat(item))
 
   let result: any = {}
   if (!flightDetails.scheduledFlights || flightDetails.scheduledFlights.length === 0 || !rating) {
@@ -44,8 +44,8 @@ function extractDetails(flight: Flight, flightDetails: any, rating: any, quote: 
     result = {
       rating,
       quote: {
-        quoteDelayed: (quotes[2] / 100).toFixed(2),
-        quoteCancelled: (quotes[3] / 100).toFixed(2)
+        quoteDelayed: quotes[2].toFixed(2),
+        quoteCancelled: quotes[3].toFixed(2)
       },
       flight: {
         ...flight,
