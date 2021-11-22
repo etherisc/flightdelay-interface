@@ -98,7 +98,7 @@ function usePurchaseCallArguments(purchase: Purchase): PurchaseCall | null {
         formatBytes32String(departureDateTime.format('YYYY/MM/DD')), // yearMonthDay TODO: check for UTC consistency
         toHex(departureDateTime.unix()), // departureTime TODO: check for UTC consistency
         toHex(arrivalDateTime.unix()), // arrivalTime TODO: check for UTC consistency
-        ['0', '0', quote.quoteDelayed15, quote.quoteCancelled, quote.quoteDiverted].map(toWei) // payoutOptions
+        ['0', '0', quote.quoteDelayed45, quote.quoteCancelled, quote.quoteDiverted].map(toWei) // payoutOptions
       ],
       value: toWei(premium)
     }

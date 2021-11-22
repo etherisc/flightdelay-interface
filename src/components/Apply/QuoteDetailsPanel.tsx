@@ -101,7 +101,7 @@ export default function QuoteDetailsPanel({ id }: QuoteDetailsPanelProps) {
                 </TYPE.body>
               </RowBetween>
             </LabelRow>
-            <InputRow>${flightDetails.quote.quoteDelayed} xDai</InputRow>
+            <InputRow>${flightDetails.quote.quoteDelayed45} xDai</InputRow>
           </InputColumn>
           <InputColumn>
             <LabelRow>
