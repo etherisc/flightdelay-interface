@@ -2,8 +2,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { TYPE } from 'theme'
 
-import { ButtonError, ButtonLight, ButtonPrimary } from '../../components/Button'
-import { AutoColumn } from '../../components/Column'
+import { ButtonError, ButtonLight, ButtonPrimary } from '../Button'
+import { AutoColumn } from '../Column'
 
 import { useActiveWeb3React } from '../../hooks'
 import { useWalletModalToggle } from '../../state/application/hooks'
@@ -123,7 +123,8 @@ export default function StakeModal({ closeModal, stableAddr, dipAddr }: Props) {
                       {approvalDip === ApprovalState.PENDING ? 'Approving Dip' : 'Approve Dip'}
                     </ButtonPrimary>
                   ) : (
-                    <ButtonError onClick={confirmStake}>
+                    // <ButtonError onClick={confirmStake}>
+                    <ButtonError disabled={true} onClick={confirmStake}>
                       <Text fontSize={16} fontWeight={500}>
                         {t('confirm')}
                       </Text>

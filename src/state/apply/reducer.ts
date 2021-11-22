@@ -14,7 +14,7 @@ const initialState: ApplyState = {
   flight: { carrier: { iata: '', name: '' }, flightNumber: '', departureDate: null },
   origin: { iata: '', name: '' },
   destination: { iata: '', name: '' },
-  premium: '15.00'
+  premium: '0.15'
 }
 
 export default createReducer<ApplyState>(initialState, builder =>

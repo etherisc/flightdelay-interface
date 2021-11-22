@@ -55,9 +55,11 @@ export async function getFlightQuote(premium: string, flight: Flight) {
     return {}
   }
 
-  const premiumAmount = `${Number(premium)
+  const premiumInCents = Number(premium) * 100
+  const premiumAmount = Number(premiumInCents)
     .toFixed(0)
-    .toString()}00`
+    .toString()
+
   const { carrier, flightNumber } = flight
 
   const apiURL = `${flightStatsBaseURL}${flightQuoteEndpoint}/${premiumAmount}/${carrier.iata}/${flightNumber}`

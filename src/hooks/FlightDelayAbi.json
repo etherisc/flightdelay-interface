@@ -23,9 +23,9 @@
           "type": "uint256"
         },
         {
-          "internalType": "uint256[]",
+          "internalType": "uint256[5]",
           "name": "_payoutOptions",
-          "type": "uint256[]"
+          "type": "uint256[5]"
         }
       ],
       "name": "applyForPolicy",

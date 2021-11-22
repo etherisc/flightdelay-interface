@@ -16,7 +16,8 @@ export enum PurchaseCallbackState {
 }
 
 // TODO: Use addressresolver or API call
-const FlightDelayContractAddress = '0xaf7f09e99501b30306988141A8c2Cfb14c0Fd8CC'
+
+const FlightDelayContractAddress = '0xbBe7c65cC7Ad821B0a94eE5CB0B0f9E343e271ae'
 
 interface PurchaseParameters {
   /**
@@ -61,9 +62,11 @@ type EstimatedPurchaseCall = SuccessfulCall | FailedCall
 
 function usePurchaseCallArguments(purchase: Purchase): PurchaseCall | null {
   const { account, library } = useActiveWeb3React()
-  const toHex = (arg: string | number) => BigNumber.from(arg).toHexString()
-  const toWei = (arg: string) => parseUnits(arg).toHexString()
+  const toHex = (arg: string | number) => BigNumber.from(arg).toString()
+  const toWei = (arg: string) => parseUnits(arg).toString()
+
   return useMemo(() => {
+    console.log('Purchase', purchase)
     if (!purchase || !purchase.flightDetails || !purchase.flightDetails.hasFlights) {
       return null
     }
@@ -95,7 +98,7 @@ function usePurchaseCallArguments(purchase: Purchase): PurchaseCall | null {
         formatBytes32String(departureDateTime.format('YYYY/MM/DD')), // yearMonthDay TODO: check for UTC consistency
         toHex(departureDateTime.unix()), // departureTime TODO: check for UTC consistency
         toHex(arrivalDateTime.unix()), // arrivalTime TODO: check for UTC consistency
-        ['0', '0', '0', quote.quoteDelayed, quote.quoteCancelled].map(toWei) // payoutOptions
+        ['0', '0', quote.quoteDelayed15, quote.quoteCancelled, quote.quoteDiverted].map(toWei) // payoutOptions
       ],
       value: toWei(premium)
     }
@@ -105,7 +108,7 @@ function usePurchaseCallArguments(purchase: Purchase): PurchaseCall | null {
     if (!contract) {
       return null
     }
-
+    console.log('Parameters', parameters)
     return { contract, parameters }
   }, [account, purchase, library])
 }

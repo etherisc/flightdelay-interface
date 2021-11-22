@@ -44,8 +44,9 @@ function extractDetails(flight: Flight, flightDetails: any, rating: any, quote: 
     result = {
       rating,
       quote: {
-        quoteDelayed: quotes[2].toFixed(2),
-        quoteCancelled: quotes[3].toFixed(2)
+        quoteDelayed15: quotes[2].toFixed(2),
+        quoteCancelled: quotes[3].toFixed(2),
+        quoteDiverted: quotes[4].toFixed(2)
       },
       flight: {
         ...flight,
