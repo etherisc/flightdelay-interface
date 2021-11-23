@@ -3,13 +3,15 @@ import { Flight } from '../../entities/flight'
 import { Airport } from '../../entities/airport'
 import { fetchFlightDetails } from './actions'
 import moment from 'moment'
+import { ethers } from 'ethers'
 
 export interface FlightDetails {
   flight: Flight
   origin: Airport
   destination: Airport
   rating: any
-  quote: any
+  quoteAsWei: any
+  quoteAsNumber: any
   pending: boolean
   hasFlights: boolean
   errorMessage: string
@@ -20,7 +22,8 @@ const initialState: FlightDetails = {
   origin: { iata: '', name: '' },
   destination: { iata: '', name: '' },
   rating: {},
-  quote: {},
+  quoteAsWei: {},
+  quoteAsNumber: {},
   pending: false,
   hasFlights: false,
   errorMessage: ''
@@ -33,23 +36,18 @@ function extractDetails(flight: Flight, flightDetails: any, rating: any, quote: 
       return airport && airport.length > 0 ? airport[0].name : ''
     } else return ''
   }
-
-  const quotes = quote.payoutOptions.map((item: string) => parseFloat(item))
-
   let result: any = {}
   if (!flightDetails.scheduledFlights || flightDetails.scheduledFlights.length === 0 || !rating) {
     result.hasFlights = false
   } else {
     const firstFlight = flightDetails.scheduledFlights[0]
+    const quoteAsWei = quote.payoutOptions
+    const quoteAsNumber = quoteAsWei.map((str: string) => parseFloat(ethers.utils.formatEther(str)).toFixed(2))
+    console.log('Here4', quoteAsNumber)
     result = {
       rating,
-      quote: {
-        quoteDelayed15: quotes[2].toFixed(2),
-        quoteDelayed30: quotes[2].toFixed(2),
-        quoteDelayed45: quotes[2].toFixed(2),
-        quoteCancelled: quotes[3].toFixed(2),
-        quoteDiverted: quotes[4].toFixed(2)
-      },
+      quoteAsWei,
+      quoteAsNumber,
       flight: {
         ...flight,
         departureDateTime: moment(firstFlight.departureTime),
@@ -67,6 +65,7 @@ function extractDetails(flight: Flight, flightDetails: any, rating: any, quote: 
       hasFlights: true
     }
   }
+  console.log('Result', result)
   return result
 }
 

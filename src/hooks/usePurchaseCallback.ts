@@ -17,7 +17,8 @@ export enum PurchaseCallbackState {
 
 // TODO: Use addressresolver or API call
 
-const FlightDelayContractAddress = '0xbBe7c65cC7Ad821B0a94eE5CB0B0f9E343e271ae'
+// const FlightDelayContractAddress = '0xbBe7c65cC7Ad821B0a94eE5CB0B0f9E343e271ae'
+const FlightDelayContractAddress = '0xF226ba8A04F7Fd15a781bFeD315711299b713dCF'
 
 interface PurchaseParameters {
   /**
@@ -72,7 +73,7 @@ function usePurchaseCallArguments(purchase: Purchase): PurchaseCall | null {
     }
     const {
       flightDetails: {
-        quote,
+        quoteAsWei,
         flight: {
           carrier: { iata },
           flightNumber,
@@ -98,7 +99,7 @@ function usePurchaseCallArguments(purchase: Purchase): PurchaseCall | null {
         formatBytes32String(departureDateTime.format('YYYY/MM/DD')), // yearMonthDay TODO: check for UTC consistency
         toHex(departureDateTime.unix()), // departureTime TODO: check for UTC consistency
         toHex(arrivalDateTime.unix()), // arrivalTime TODO: check for UTC consistency
-        ['0', '0', quote.quoteDelayed45, quote.quoteCancelled, quote.quoteDiverted].map(toWei) // payoutOptions
+        quoteAsWei // payoutOptions
       ],
       value: toWei(premium)
     }
