@@ -19,9 +19,11 @@ import styled from 'styled-components'
 import { Text } from 'rebass'
 
 import Logo from '../../assets/images/2020_Etherisc_FlightDelayProtection.svg'
+import LogoDark from '../../assets/images/2020_Etherisc_FlightDelayProtectionWhite.svg'
 import { isDefinedFlight } from '../../entities/flight'
 import { useFlightDetailsState } from '../../state/flightDetails/hooks'
 import { usePurchaseCallback } from '../../hooks/usePurchaseCallback'
+import { useDarkModeManager } from '../../state/user/hooks'
 
 const Wrapper = styled.div`
   position: relative;
@@ -112,6 +114,7 @@ export default function Apply() {
   const handleConfirmDismiss = useCallback(() => {
     setPurchaseState({ showConfirm: false, attemptingTxn, txHash, purchaseErrorMessage: undefined })
   }, [attemptingTxn, txHash])
+  const [isDark] = useDarkModeManager()
 
   return (
     <>
@@ -128,7 +131,7 @@ export default function Apply() {
           ></ConfirmPurchaseModal>
           <AutoColumn gap={'md'}>
             <DialogTitle>
-              <img width={'400px'} src={Logo} alt="logo" />
+              <img width={'400px'} src={isDark ? LogoDark : Logo} alt="logo" />
             </DialogTitle>
             <FlightInputPanel
               flight={flight}
