@@ -24,7 +24,6 @@ const HeaderFrame = styled.div`
   grid-template-columns: 1fr 120px;
   align-items: center;
   justify-content: space-between;
-  align-items: center;
   flex-direction: row;
   width: 100%;
   top: 0;
@@ -227,7 +226,7 @@ export default function Header() {
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
             {account && userEthBalance ? (
               <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
-                {userEthBalance?.toSignificant(4)} ETH
+                {userEthBalance?.toSignificant(4)} xDai
               </BalanceText>
             ) : null}
             <Web3Status />
