@@ -2,7 +2,7 @@
 import React from 'react'
 import { Text } from 'rebass'
 import { NavLink } from 'react-router-dom'
-import { darken } from 'polished'
+// import { darken } from 'polished'
 import { useTranslation } from 'react-i18next'
 
 import styled from 'styled-components'
@@ -171,7 +171,7 @@ const StyledNavLink = styled(NavLink).attrs({
   outline: none;
   cursor: pointer;
   text-decoration: none;
-  color: ${({ theme }) => theme.text1};
+  color: #fff;
   font-size: 1rem;
   width: fit-content;
   margin: 0 12px;
@@ -179,13 +179,13 @@ const StyledNavLink = styled(NavLink).attrs({
 
   &.${activeClassName} {
     border-radius: 12px;
-    font-weight: 600;
-    color: ${({ theme }) => theme.text5};
+    font-weight: 800;
+    color: #000;
   }
 
   :hover,
   :focus {
-    color: ${({ theme }) => darken(0.1, theme.text5)};
+    color: #000;
   }
 `
 
