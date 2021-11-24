@@ -185,7 +185,7 @@ const StyledNavLink = styled(NavLink).attrs({
 
   :hover,
   :focus {
-    color: ${({ theme }) => darken(0.1, theme.text1)};
+    color: ${({ theme }) => darken(0.1, theme.text5)};
   }
 `
 
