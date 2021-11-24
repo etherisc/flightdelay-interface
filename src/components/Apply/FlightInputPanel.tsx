@@ -99,11 +99,14 @@ const StyledCarrier = styled.span<{ active?: boolean }>`
 const StyledDatePicker = styled.div<{ active?: boolean }>`
   & .SingleDatePicker,
   .SingleDatePickerInput {
+    .DateInput {
+      background: ${({ theme }) => theme.bg2};
+    }
     .DateInput_input {
       font-weight: 500;
       font-size: ${({ active }) => (active ? '20px' : '16px')};
       line-height: 24px;
-      padding: 0px 8px;
+      padding: 0 8px;
       height: 2.2rem;
       color: ${({ theme }) => theme.text1};
       background-color: ${({ theme }) => theme.bg2};
@@ -122,7 +125,7 @@ const StyledDatePicker = styled.div<{ active?: boolean }>`
     }
     .DateInput_input__focused {
       outline: 0;
-      background: #fff;
+      background: ${({ theme }) => theme.bg2};
       border: 0;
     }
   }
