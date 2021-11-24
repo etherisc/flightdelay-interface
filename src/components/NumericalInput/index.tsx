@@ -15,7 +15,7 @@ const StyledInput = styled.input<{ active?: boolean; align?: string }>`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 0px 8px;
+  padding: 0 8px;
   min-height: 2.2rem;
   border-radius: 12px;
   -webkit-appearance: textfield;
@@ -60,7 +60,8 @@ export const Input = React.memo(function InnerInput({
       value={value}
       active={active}
       onChange={event => {
-        onUserInput(event.target.value)
+        const value = event.target.value
+        if (RegExp(/^\d*$/).test(value)) onUserInput(value)
       }}
       onBlur={event => onUserInput(event.target.value)}
       // universal input options
