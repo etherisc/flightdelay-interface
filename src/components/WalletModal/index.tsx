@@ -20,6 +20,8 @@ import Modal from '../Modal'
 import Option from './Option'
 import PendingView from './PendingView'
 import { useTranslation } from 'react-i18next'
+import { ButtonError } from '../Button'
+import { Text } from 'rebass'
 
 const CloseIcon = styled.div`
   position: absolute;
@@ -74,7 +76,7 @@ const UpperSection = styled.div`
   }
 
   h5:last-child {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 
   h4 {
@@ -140,6 +142,58 @@ export default function WalletModal({
   const toggleWalletModal = useWalletModalToggle()
 
   const previousAccount = usePrevious(account)
+
+  const addNetwork = async () => {
+    if (window && typeof window === 'object' && window.ethereum) {
+      try {
+        await window.ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [
+            {
+              chainId: '0x64',
+              chainName: 'xDAI Chain',
+              nativeCurrency: {
+                name: 'xDAI',
+                symbol: 'xDAI', // 2-6 characters long
+                decimals: 18
+              },
+              rpcUrls: ['https://rpc.xdaichain.com/'],
+              blockExplorerUrls: ['https://blockscout.com/xdai/mainnet/']
+            }
+          ]
+        })
+      } catch (addError) {
+        console.log(addError)
+      }
+    }
+  }
+
+  const switchNetwork = async () => {
+    const doSwitch = async () => {
+      if (window && typeof window === 'object' && window.ethereum) {
+        await window.ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x64' }]
+        })
+      }
+    }
+
+    try {
+      await doSwitch()
+    } catch (switchError) {
+      if (switchError.code === 4902) {
+        try {
+          await addNetwork()
+          await doSwitch()
+        } catch (switchError2) {
+          console.log('problem switching network')
+        }
+      } else {
+        // handle other errors
+        console.log('unexpected error switching network')
+      }
+    }
+  }
 
   // close on connection, when logged out before
   useEffect(() => {
@@ -300,7 +354,17 @@ export default function WalletModal({
           <HeaderRow>{error instanceof UnsupportedChainIdError ? t('wrongNetwork2') : t('errorConnecting2')}</HeaderRow>
           <ContentWrapper>
             {error instanceof UnsupportedChainIdError ? (
-              <h5>{t('connectAppropriateNetwork')}</h5>
+              <h5>
+                <ButtonError
+                  onClick={async () => {
+                    await switchNetwork()
+                  }}
+                  style={{ margin: '10px 0 0 0' }}
+                  id="confirm-swap-or-send"
+                >
+                  <Text fontWeight={500}>{t('connectAppropriateNetwork')}</Text>
+                </ButtonError>
+              </h5>
             ) : (
               t('errorConnecting')
             )}

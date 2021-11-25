@@ -13,7 +13,7 @@
   "change": "Wechseln",
   "confirm": "Bestätigen",
   "connectedWith": "Verbunden mit {{ name }}",
-  "connectAppropriateNetwork": "Bitte verbinden Sie sich mit dem xdai Netzwerk.",
+  "connectAppropriateNetwork": "Mit dem xdai Netzwerk verbinden",
   "connectToWallet": "Mit einem Wallet verbinden",
   "connectWallet": "Wallet verbinden",
   "copyAddress": "Adresse kopieren",

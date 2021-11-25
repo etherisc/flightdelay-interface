@@ -7,7 +7,7 @@ export function useAllCarriers(): { [iata: string]: Carrier } {
       LH: { iata: 'LH', name: 'Lufthansa' } as Carrier,
       AF: { iata: 'AF', name: 'Air France' } as Carrier,
       UA: { iata: 'UA', name: 'United Airlines' } as Carrier,
-      KLM: { iata: 'KLM', name: 'KLM' } as Carrier
+      KLM: { iata: 'KLM', name: 'Koninklijke Luchtvaartmaatschappij' } as Carrier
     }
   }, [])
 }

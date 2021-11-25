@@ -13,7 +13,7 @@
   "change": "Change",
   "confirm": "Confirm",
   "connectedWith": "Connected with {{ name }}",
-  "connectAppropriateNetwork": "Please connect to the xDai network.",
+  "connectAppropriateNetwork": "Connect to the xDai network",
   "connectToWallet": "Connect to a wallet",
   "connectWallet": "Connect Wallet",
   "copyAddress": "Copy Address",
