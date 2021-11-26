@@ -27,7 +27,8 @@ const CarrierSelect = styled.button<{ selected: boolean }>`
   user-select: none;
   border: none;
   padding: 0 0.5rem;
-
+  flex: 1 1 auto;
+  
   :focus,
   :hover {
     background-color: ${({ theme }) => theme.bg3};
