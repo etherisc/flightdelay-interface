@@ -35,6 +35,14 @@ const BottomGrouping = styled.div`
 
 const DialogTitle = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
+  img {
+    width: 400px;
+  }
+  @media (max-width: 600px) {
+    img {
+      width: 300px;
+    }
+  }
 `
 export default function Apply() {
   const { t } = useTranslation()
@@ -131,7 +139,7 @@ export default function Apply() {
           ></ConfirmPurchaseModal>
           <AutoColumn gap={'md'}>
             <DialogTitle>
-              <img width={'400px'} src={isDark ? LogoDark : Logo} alt="logo" />
+              <img src={isDark ? LogoDark : Logo} alt="logo" />
             </DialogTitle>
             <FlightInputPanel
               flight={flight}
