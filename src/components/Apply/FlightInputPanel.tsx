@@ -28,7 +28,6 @@ const CarrierSelect = styled.button<{ selected: boolean }>`
   border: none;
   padding: 0 0.5rem;
   flex: 1 1 auto;
-  
   :focus,
   :hover {
     background-color: ${({ theme }) => theme.bg3};
@@ -105,6 +104,7 @@ const StyledDatePicker = styled.div<{ active?: boolean }>`
   .SingleDatePickerInput {
     .DateInput {
       background: ${({ theme }) => theme.bg2};
+      width: 100%;
     }
     .DateInput_input {
       font-weight: 500;
