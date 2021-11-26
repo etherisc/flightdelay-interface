@@ -78,6 +78,9 @@ const Container = styled(RowBetween)`
   border-radius: 20px;
   border: 1px solid ${({ theme }) => theme.bg2};
   background-color: ${({ theme }) => theme.bg1};
+  @media (max-width: 600px) {
+    display: block;
+  }
 `
 
 const InputRow = styled.div`
