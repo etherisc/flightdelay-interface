@@ -18,8 +18,8 @@ export enum PurchaseCallbackState {
 // TODO: Use addressresolver or API call
 
 // const FlightDelayContractAddress = '0xbBe7c65cC7Ad821B0a94eE5CB0B0f9E343e271ae'
-const FlightDelayContractAddress = '0xF226ba8A04F7Fd15a781bFeD315711299b713dCF' // Product #8 on xDai
-// const FlightDelayContractAddress = '0x9eF34Af6F98dcE7BD5aB07a8b1387d071Ac40f50' // Product #9 on xDai
+// const FlightDelayContractAddress = '0xF226ba8A04F7Fd15a781bFeD315711299b713dCF' // Product #8 on xDai
+const FlightDelayContractAddress = '0x9eF34Af6F98dcE7BD5aB07a8b1387d071Ac40f50' // Product #9 on xDai
 
 interface PurchaseParameters {
   /**
