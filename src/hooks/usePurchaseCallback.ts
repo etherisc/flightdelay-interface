@@ -68,7 +68,6 @@ function usePurchaseCallArguments(purchase: Purchase): PurchaseCall | null {
   const toWei = (arg: string) => parseUnits(arg).toString()
 
   return useMemo(() => {
-    console.log('Purchase', purchase)
     if (!purchase || !purchase.flightDetails || !purchase.flightDetails.hasFlights) {
       return null
     }
@@ -78,14 +77,14 @@ function usePurchaseCallArguments(purchase: Purchase): PurchaseCall | null {
         flight: {
           carrier: { iata },
           flightNumber,
-          arrivalDateTime,
+          arrivalDateTimeUTC,
           departureDateTime
         }
       },
       premium
     } = purchase
 
-    if (!arrivalDateTime || !departureDateTime) {
+    if (!arrivalDateTimeUTC || !departureDateTime) {
       return null
     }
     // const departureYearMonthDay = departureDateTime => {
@@ -97,9 +96,9 @@ function usePurchaseCallArguments(purchase: Purchase): PurchaseCall | null {
       methodName: 'applyForPolicy',
       args: [
         formatBytes32String(`${iata}/${flightNumber}`), // carrierFlight
-        formatBytes32String(departureDateTime.format('YYYY/MM/DD')), // yearMonthDay TODO: check for UTC consistency
-        toHex(departureDateTime.unix()), // departureTime TODO: check for UTC consistency
-        toHex(arrivalDateTime.unix()), // arrivalTime TODO: check for UTC consistency
+        formatBytes32String(departureDateTime.format('YYYY/MM/DD')), // yearMonthDay
+        toHex(departureDateTime.unix()), // departureTime
+        toHex(arrivalDateTimeUTC.unix()), // arrivalTime
         quoteAsWei // payoutOptions
       ],
       value: toWei(premium)

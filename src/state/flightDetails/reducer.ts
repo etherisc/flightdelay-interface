@@ -41,9 +41,10 @@ function extractDetails(flight: Flight, flightDetails: any, rating: any, quote: 
     result.hasFlights = false
   } else {
     const firstFlight = flightDetails.scheduledFlights[0]
+    const airports = flightDetails.appendix.airports
+    const { utcOffsetHours } = airports.find((airport: any) => airport.fs === firstFlight.arrivalAirportFsCode)
     const quoteAsWei = quote.payoutOptions
     const quoteAsNumber = quoteAsWei.map((str: string) => parseFloat(ethers.utils.formatEther(str)).toFixed(2))
-    console.log('Here4', quoteAsNumber)
     result = {
       rating,
       quoteAsWei,
@@ -51,7 +52,8 @@ function extractDetails(flight: Flight, flightDetails: any, rating: any, quote: 
       flight: {
         ...flight,
         departureDateTime: moment(firstFlight.departureTime),
-        arrivalDateTime: moment(firstFlight.arrivalTime)
+        arrivalDateTime: moment(firstFlight.arrivalTime),
+        arrivalDateTimeUTC: moment(`${firstFlight.arrivalTime}Z`).subtract(utcOffsetHours, 'hours')
       },
       origin: {
         iata: firstFlight.departureAirportFsCode,
@@ -65,7 +67,6 @@ function extractDetails(flight: Flight, flightDetails: any, rating: any, quote: 
       hasFlights: true
     }
   }
-  console.log('Result', result)
   return result
 }
 

@@ -15,7 +15,6 @@ export async function fetchDetailsThunk(dispatch: any, getState: any) {
     try {
       const flightDetails = await getFlightSchedule(flight)
       const { rating, quote } = await getFlightQuote(premium, flight)
-      console.log('In FetchDetailsThunk', rating, quote)
       dispatch({
         type: 'fetchFlightDetails/fulfilled',
         payload: { flight, flightDetails, rating, quote }

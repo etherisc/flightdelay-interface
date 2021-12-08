@@ -24,9 +24,7 @@ export async function getFlightSchedule(flight: Flight) {
 
   if (!response.ok) throw new Error(`Failed to get flight Details ${apiURL}`)
 
-  const json = await response.json()
-  console.log(json)
-  return json
+  return await response.json()
 }
 
 export async function getFlightRatings(flight: Flight) {

@@ -7,6 +7,7 @@ export interface Flight {
   departureDate: Moment | null
   departureDateTime?: Moment | null
   arrivalDateTime?: Moment | null
+  arrivalDateTimeUTC?: Moment | null
 }
 
 export function isDefinedFlight(flight: Flight) {
