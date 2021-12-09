@@ -74,7 +74,8 @@ export default function FlightDetailsPanel({ id }: FlightDetailsPanelProps) {
   }
 
   function probabilityCancelled() {
-    const prob = (flightDetails.rating.cancelled / flightDetails.rating.observations) * 100
+    const prob =
+      ((flightDetails.rating.cancelled + flightDetails.rating.diverted) / flightDetails.rating.observations) * 100
     return prob.toFixed(2)
   }
 
