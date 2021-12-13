@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { Contract } from '@ethersproject/contracts'
-import { defaultAbiCoder, formatBytes32String, parseUnits } from 'ethers/lib/utils'
+import { formatBytes32String, parseUnits, toUtf8String } from 'ethers/lib/utils'
 import { useMemo } from 'react'
 import { useTransactionAdder } from '../state/transactions/hooks'
 import { calculateGasMargin, getContract } from '../utils'
@@ -129,7 +129,6 @@ export function usePurchaseCallback(
     if (!purchaseCall || !library || !account || !chainId) {
       return { state: PurchaseCallbackState.INVALID, callback: null, error: 'Missing dependencies' }
     }
-
     return {
       state: PurchaseCallbackState.VALID,
       callback: async function onPurchase(): Promise<string> {
@@ -142,6 +141,7 @@ export function usePurchaseCallback(
 
         const estimatedPurchaseCall: EstimatedPurchaseCall = await contract.estimateGas[methodName](...args, options)
           .then(gasEstimate => {
+            console.debug('estimatePurchaseCall successfull')
             return {
               call: purchaseCall,
               gasEstimate
@@ -164,15 +164,15 @@ export function usePurchaseCallback(
                   ? callError.reason
                   : callError.code
                   ? callError.data.data.slice(0, 8) === 'Reverted'
-                    ? `Error: Revert; Reason: ${
-                        defaultAbiCoder.decode(['string'], '0x' + callError.data.data.slice(19))[0]
-                      }; Message = ${callError.data.message}`
+                    ? `Error: Revert, reason: ${toUtf8String(callError.data.data.slice(9))}; Message = ${
+                        callError.data.message
+                      }`
                     : `Error: Code = ${callError.code}, data = ${JSON.stringify(callError.data)}`
                   : JSON.stringify(callError)
                 return { call: purchaseCall, error: new Error(reason) }
               })
           })
-
+        console.log(estimatedPurchaseCall)
         if ('error' in estimatedPurchaseCall) {
           console.debug('Error in estimatePurchaseCall, error=', estimatedPurchaseCall.error)
           throw estimatedPurchaseCall.error
