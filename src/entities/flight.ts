@@ -6,6 +6,7 @@ export interface Flight {
   flightNumber: string
   departureDate: Moment | null
   departureDateTime?: Moment | null
+  departureDateTimeUTC?: Moment | null
   arrivalDateTime?: Moment | null
   arrivalDateTimeUTC?: Moment | null
 }

@@ -29,6 +29,9 @@ const initialState: FlightDetails = {
   errorMessage: ''
 }
 
+const adjustUTC = (localtime: string, utcOffsetHours: number) =>
+  moment(`${localtime}Z`).subtract(utcOffsetHours, 'hours')
+
 function extractDetails(flight: Flight, flightDetails: any, rating: any, quote: any): FlightDetails {
   function airport(iata: string) {
     if (flightDetails.appendix && flightDetails.appendix.airports && flightDetails.appendix.airports.length > 0) {
@@ -42,7 +45,10 @@ function extractDetails(flight: Flight, flightDetails: any, rating: any, quote: 
   } else {
     const firstFlight = flightDetails.scheduledFlights[0]
     const airports = flightDetails.appendix.airports
-    const { utcOffsetHours } = airports.find((airport: any) => airport.fs === firstFlight.arrivalAirportFsCode)
+    const { arrivalUtcOffsetHours } = airports.find((airport: any) => airport.fs === firstFlight.arrivalAirportFsCode)
+    const { departureUtcOffsetHours } = airports.find(
+      (airport: any) => airport.fs === firstFlight.departureAirportFsCode
+    )
     const quoteAsWei = quote.payoutOptions
     const quoteAsNumber = quoteAsWei.map((str: string) => parseFloat(ethers.utils.formatEther(str)).toFixed(2))
     result = {
@@ -53,7 +59,8 @@ function extractDetails(flight: Flight, flightDetails: any, rating: any, quote: 
         ...flight,
         departureDateTime: moment(firstFlight.departureTime),
         arrivalDateTime: moment(firstFlight.arrivalTime),
-        arrivalDateTimeUTC: moment(`${firstFlight.arrivalTime}Z`).subtract(utcOffsetHours, 'hours')
+        arrivalDateTimeUTC: adjustUTC(firstFlight.arrivalTime, arrivalUtcOffsetHours),
+        departureDateTimeUTC: adjustUTC(firstFlight.departureTime, departureUtcOffsetHours)
       },
       origin: {
         iata: firstFlight.departureAirportFsCode,

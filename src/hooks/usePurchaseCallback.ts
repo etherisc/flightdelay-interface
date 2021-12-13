@@ -78,27 +78,24 @@ function usePurchaseCallArguments(purchase: Purchase): PurchaseCall | null {
           carrier: { iata },
           flightNumber,
           arrivalDateTimeUTC,
-          departureDateTime
+          departureDateTime,
+          departureDateTimeUTC
         }
       },
       premium
     } = purchase
 
-    if (!arrivalDateTimeUTC || !departureDateTime) {
+    if (!arrivalDateTimeUTC || !departureDateTime || !departureDateTimeUTC) {
       return null
     }
-    // const departureYearMonthDay = departureDateTime => {
-    //    format YYYY/MM/DD
-    // }
-    // const
 
     const parameters = {
       methodName: 'applyForPolicy',
       args: [
         formatBytes32String(`${iata}/${flightNumber}`), // carrierFlight
-        formatBytes32String(departureDateTime.format('YYYY/MM/DD')), // yearMonthDay
-        toHex(departureDateTime.unix()), // departureTime
-        toHex(arrivalDateTimeUTC.unix()), // arrivalTime
+        formatBytes32String(departureDateTime.format('YYYY/MM/DD')), // yearMonthDay, local time!
+        toHex(departureDateTimeUTC.unix()), // departureTime, converted to UTC
+        toHex(arrivalDateTimeUTC.unix()), // arrivalTime, converted to UTC
         quoteAsWei // payoutOptions
       ],
       value: toWei(premium)
