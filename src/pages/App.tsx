@@ -29,6 +29,9 @@ const BodyWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   min-height: 700px;
+  @media (max-width: 600px) {
+    min-height: 770px;
+  }
   padding-top: 100px;
   align-items: center;
   flex: 1;
