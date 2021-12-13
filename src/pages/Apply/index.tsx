@@ -47,7 +47,7 @@ const DialogTitle = styled.div`
 export default function Apply() {
   const { t } = useTranslation()
   const flightDetails = useFlightDetailsState()
-  const premium = '0.15'
+  const premium = '1.50'
   const purchase = { flightDetails, premium }
 
   const { account } = useActiveWeb3React()
