@@ -107,7 +107,7 @@ function usePurchaseCallArguments(purchase: Purchase): PurchaseCall | null {
     if (!contract) {
       return null
     }
-    console.log('Parameters', parameters)
+    console.debug('Parameters', parameters)
     return { contract, parameters }
   }, [account, purchase, library])
 }

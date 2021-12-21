@@ -6,6 +6,7 @@ import { updateVersion } from './global/actions'
 import user from './user/reducer'
 import apply from './apply/reducer'
 import flightDetails from './flightDetails/reducer'
+import policies from './policy/reducer'
 import transactions from './transactions/reducer'
 import multicall from './multicall/reducer'
 
@@ -16,6 +17,7 @@ const store = configureStore({
     application,
     apply,
     flightDetails,
+    policies,
     user,
     transactions,
     multicall

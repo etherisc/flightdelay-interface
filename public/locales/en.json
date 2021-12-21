@@ -110,6 +110,7 @@
   "output": "Output",
   "pending": "Pending",
   "pendingTransactionText": "Please wait while the transaction is processed.",
+  "policies": "Policies",
   "pool": "Pool",
   "poolTokens": "Pool Tokens",
   "priceChange": "Expected price slippage",
