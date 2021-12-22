@@ -4,7 +4,7 @@ import { TYPE } from 'theme'
 import { GreyCard } from 'components/Card'
 import { PolicyData } from '../../state/policy/reducer'
 import Loader, { LoadingRows } from 'components/Loader'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import { AutoColumn } from 'components/Column'
 import { Label, ClickableText } from '../Text'
 import { PageButtons, Arrow, Break } from 'components/shared'
@@ -44,7 +44,7 @@ const ResponsiveGrid = styled.div`
     }
   }
 `
-
+/*
 const LinkWrapper = styled(Link)`
   text-decoration: none;
   :hover {
@@ -52,6 +52,7 @@ const LinkWrapper = styled(Link)`
     opacity: 0.7;
   }
 `
+*/
 
 const DataRow = ({ policyData, index }: { policyData: PolicyData; index: number }) => {
   // const theme = useTheme()
@@ -60,24 +61,22 @@ const DataRow = ({ policyData, index }: { policyData: PolicyData; index: number 
     .slice(0, 10)
     .replaceAll('-', '/')
   return (
-    <LinkWrapper to={'policy/' + index}>
-      <ResponsiveGrid>
-        <Label>{index + 1}</Label>
-        <Label>{policyData.carrierFlightNumber}</Label>
-        <Label end={1} fontWeight={400}>
-          {arrival}
-        </Label>
-        <Label end={1} fontWeight={400}>
-          {policyData.premium}
-        </Label>
-        <Label end={1} fontWeight={400}>
-          A
-        </Label>
-        <Label end={1} fontWeight={400}>
-          {policyData.delayInMinutes} min.
-        </Label>
-      </ResponsiveGrid>
-    </LinkWrapper>
+    <ResponsiveGrid>
+      <Label>{index + 1}</Label>
+      <Label>{policyData.carrierFlightNumber}</Label>
+      <Label end={1} fontWeight={400}>
+        {arrival}
+      </Label>
+      <Label end={1} fontWeight={400}>
+        {policyData.premium}
+      </Label>
+      <Label end={1} fontWeight={400}>
+        A
+      </Label>
+      <Label end={1} fontWeight={400}>
+        {policyData.delayInMinutes} min.
+      </Label>
+    </ResponsiveGrid>
   )
 }
 
