@@ -59,6 +59,10 @@ declare module 'styled-components' {
     // shadows
     shadow1: string
 
+    // background image
+    backgroundImage: string
+    backgroundImageMobile: string
+
     // media queries
     mediaWidth: {
       upToExtraSmall: ThemedCssFunction<DefaultTheme>

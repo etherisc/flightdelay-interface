@@ -1,6 +1,8 @@
 // import { transparentize } from 'polished'
-import Background from '../assets/images/FlightDelayBackgroundDesktop.png'
-import BackgroundMobile from '../assets/images/FlightDelayBackgroundMobile.png'
+import Background from '../assets/images/FlightDelayBackgroundDesktopLR.png'
+import BackgroundMobile from '../assets/images/FlightDelayBackgroundMobileLR.png'
+import BackgroundDark from '../assets/images/FlightDelayBackgroundDesktopLRDark.png'
+import BackgroundMobileDark from '../assets/images/FlightDelayBackgroundMobileLRDark.png'
 import React, { useMemo } from 'react'
 import styled, {
   createGlobalStyle,
@@ -98,6 +100,9 @@ export function theme(darkMode: boolean): DefaultTheme {
       md: 12,
       lg: 24
     },
+
+    backgroundImage: darkMode ? BackgroundDark : Background,
+    backgroundImageMobile: darkMode ? BackgroundMobileDark : BackgroundMobile,
 
     //shadows
     shadow1: darkMode ? '#000' : '#2F80ED',
@@ -224,6 +229,7 @@ html {
 `
 
 export const ThemedGlobalStyle = createGlobalStyle`
+  
 html {
   color: ${({ theme }) => theme.text1};
   background-color: ${({ theme }) => theme.bg2};
@@ -233,9 +239,9 @@ body {
   min-height: 100vh;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url('${Background}');
+  background-image: url('${({ theme }) => theme.backgroundImage}');
   @media (max-width: 600px){
-    background-image: url ('${BackgroundMobile}')
+    background-image: url ('${({ theme }) => theme.backgroundImageMobile}')
   }
 }
 `

@@ -70,6 +70,7 @@ export default function App() {
               <Route exact strict path="/apply" component={Apply} />
               <Route exact strict path="/stake" component={Stake} />
               <Route exact strict path="/policies" component={Policies} />
+              <Route exact strict path="/" component={Apply} />
             </Switch>
           </Web3ReactManager>
           <Marginer />

@@ -28,7 +28,7 @@ const DialogTitle = styled.div`
 export default function Policies() {
   // const { t } = useTranslation()
   const [isDark] = useDarkModeManager()
-  const pd = usePoliciesState().policies
+  const policyData = usePoliciesState()
   const { account } = useActiveWeb3React()
   const dispatch = useDispatch()
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function Policies() {
               <img src={isDark ? LogoDark : Logo} alt="logo" />
             </DialogTitle>
           </AutoColumn>
-          <PolicyTable policyData={pd}></PolicyTable>
+          <PolicyTable policyData={policyData}></PolicyTable>
         </Wrapper>
       </AppBody>
     </>

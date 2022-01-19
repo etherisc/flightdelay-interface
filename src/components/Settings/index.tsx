@@ -10,7 +10,7 @@ import { TYPE } from '../../theme'
 import { ButtonError } from '../Button'
 import { AutoColumn } from '../Column'
 import Modal from '../Modal'
-import QuestionHelper from '../QuestionHelper'
+// import QuestionHelper from '../QuestionHelper'
 import { RowBetween, RowFixed } from '../Row'
 import Toggle from '../Toggle'
 import TransactionSettings from '../TransactionSettings'
@@ -198,6 +198,7 @@ export default function SettingsTab() {
             <Text fontWeight={600} fontSize={14}>
               {t('interfaceSettings')}
             </Text>
+            {/*
             <RowBetween>
               <RowFixed>
                 <TYPE.black fontWeight={400} fontSize={14} color={theme.text2}>
@@ -220,7 +221,7 @@ export default function SettingsTab() {
                       }
                 }
               />
-            </RowBetween>
+            </RowBetween> */}
             <RowBetween>
               <RowFixed>
                 <TYPE.black fontWeight={400} fontSize={14} color={theme.text2}>

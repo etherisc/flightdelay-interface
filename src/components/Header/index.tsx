@@ -21,7 +21,7 @@ import Web3Status from '../Web3Status'
 
 const HeaderFrame = styled.div`
   display: grid;
-  grid-template-columns: 1fr 120px;
+  grid-template-columns: 1fr 1fr 120px;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
@@ -193,6 +193,8 @@ const NETWORK_LABELS = (chainId: string | any) => {
   return chainId === 77 ? 'Sokol' : chainId === 100 ? 'xDai' : ''
 }
 
+const isDemo = () => process.env.REACT_APP_DEMO === '1'
+
 export default function Header() {
   const { account, chainId } = useActiveWeb3React()
   const { t } = useTranslation()
@@ -218,6 +220,11 @@ export default function Header() {
             {t('stake')}
           </StyledNavLink>
         </HeaderLinks>
+      </HeaderRow>
+      <HeaderRow>
+        <HeaderElement>
+          {isDemo() && <NetworkCard title={t('thisIsADemo')}>{t('thisIsADemo')}</NetworkCard>}
+        </HeaderElement>
       </HeaderRow>
       <HeaderControls>
         <HeaderElement>

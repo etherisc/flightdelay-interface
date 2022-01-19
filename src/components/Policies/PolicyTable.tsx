@@ -86,7 +86,7 @@ export default function PolicyTable({
   policyData,
   maxItems = MAX_ITEMS
 }: {
-  policyData: PolicyData[] | undefined
+  policyData: { policies: PolicyData[]; pending: boolean } | undefined
   maxItems?: number
 }) {
   // theming
@@ -102,16 +102,16 @@ export default function PolicyTable({
   useEffect(() => {
     let extraPages = 1
     if (policyData) {
-      if (policyData.length % maxItems === 0) {
+      if (policyData.policies.length % maxItems === 0) {
         extraPages = 0
       }
-      setMaxPage(Math.floor(policyData.length / maxItems) + extraPages)
+      setMaxPage(Math.floor(policyData.policies.length / maxItems) + extraPages)
     }
   }, [maxItems, policyData])
 
   const sortedPolicies = useMemo(() => {
     return policyData
-      ? policyData
+      ? policyData.policies
       : /*
           .filter(x => !!x && !policy_HIDE.includes(x.address))
           .sort((a, b) => {
@@ -234,7 +234,7 @@ export default function PolicyTable({
             </div>
           </PageButtons>
         </AutoColumn>
-      ) : (
+      ) : policyData.pending ? (
         <LoadingRows>
           <div />
           <div />
@@ -249,6 +249,8 @@ export default function PolicyTable({
           <div />
           <div />
         </LoadingRows>
+      ) : (
+        <div>No policies found</div>
       )}
     </Wrapper>
   )

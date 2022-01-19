@@ -61,7 +61,8 @@ export function CarrierSearch({ selectedCarrier, onCarrierSelect, onDismiss, isO
 
   const filteredSortedCarriers: Carrier[] = useMemo(() => {
     function carrierComparator(carrierA: Carrier, carrierB: Carrier) {
-      return carrierA.iata.toLowerCase() < carrierB.iata.toLowerCase() ? -1 : 1
+      const invert = invertSearchOrder ? -1 : 1
+      return carrierA.name.toLowerCase() < carrierB.name.toLowerCase() ? -invert : invert
     }
 
     const sorted = filteredCarriers.sort(carrierComparator)
@@ -76,7 +77,7 @@ export function CarrierSearch({ selectedCarrier, onCarrierSelect, onDismiss, isO
       ...sorted.filter(carrier => carrier.iata?.toLowerCase() === queryParts[0]),
       ...sorted.filter(carrier => carrier.iata?.toLowerCase() !== queryParts[0])
     ]
-  }, [filteredCarriers, searchQuery])
+  }, [filteredCarriers, searchQuery, invertSearchOrder])
 
   const handleCarrierSelect = useCallback(
     (carrier: Carrier) => {
