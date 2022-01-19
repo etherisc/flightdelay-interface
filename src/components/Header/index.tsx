@@ -216,9 +216,11 @@ export default function Header() {
           <StyledNavLink id={`apply-nav-link`} to={'/policies'}>
             {t('policies')}
           </StyledNavLink>
+          {/*
           <StyledNavLink id={`stake-nav-link`} to={'/stake'}>
             {t('stake')}
           </StyledNavLink>
+          */}
         </HeaderLinks>
       </HeaderRow>
       <HeaderRow>
