@@ -9,6 +9,9 @@ import PolicyTable from '../../components/Policies/PolicyTable'
 import { usePoliciesState, getPolicyData } from '../../state/policy/hooks'
 import { useActiveWeb3React } from '../../hooks'
 import { useDispatch } from 'react-redux'
+import { ButtonLight } from '../../components/Button'
+import { useWalletModalToggle } from '../../state/application/hooks'
+import { useTranslation } from 'react-i18next'
 
 const Wrapper = styled.div`
   position: relative;
@@ -26,7 +29,7 @@ const DialogTitle = styled.div`
   }
 `
 export default function Policies() {
-  // const { t } = useTranslation()
+  const { t } = useTranslation()
   const [isDark] = useDarkModeManager()
   const policyData = usePoliciesState()
   const { account } = useActiveWeb3React()
@@ -34,6 +37,8 @@ export default function Policies() {
   useEffect(() => {
     getPolicyData(dispatch, account)
   }, [account, dispatch])
+  // toggle wallet when disconnected
+  const toggleWalletModal = useWalletModalToggle()
 
   return (
     <>
@@ -44,7 +49,11 @@ export default function Policies() {
               <img src={isDark ? LogoDark : Logo} alt="logo" />
             </DialogTitle>
           </AutoColumn>
-          <PolicyTable policyData={policyData}></PolicyTable>
+          {account ? (
+            <PolicyTable policyData={policyData}></PolicyTable>
+          ) : (
+            <ButtonLight onClick={toggleWalletModal}>{t('connectWallet')}</ButtonLight>
+          )}
         </Wrapper>
       </AppBody>
     </>
