@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { darken } from 'polished'
 import { RowBetween } from '../Row'
-import { TYPE } from '../../theme'
+import { ExternalLink, TYPE } from '../../theme'
 import { useTranslation } from 'react-i18next'
 import { useFlightDetailsState } from '../../state/flightDetails/hooks'
 import { useApplyState } from '../../state/apply/hooks'
@@ -65,7 +65,8 @@ export default function QuoteDetailsPanel({ id }: QuoteDetailsPanelProps) {
   const flightDetails = useFlightDetailsState()
   const apply = useApplyState()
   const theme = useContext(ThemeContext)
-
+  const terms =
+    'https://docs.google.com/viewer?url=https://docs.google.com/document/d/1YU5hcymzXkKWEszD0sNgm6cYDoDFpH5ywzkmt6Ivd6k/export?format=pdf'
   return (
     <InputPanel id={id}>
       <Container>
@@ -85,11 +86,10 @@ export default function QuoteDetailsPanel({ id }: QuoteDetailsPanelProps) {
             <LabelRow>
               <RowBetween>
                 <TYPE.body color={theme.text2} fontWeight={500} fontSize={14}>
-                  {t('fdd.termsAndConditions')}
+                  <ExternalLink href={terms}>{t('fdd.termsAndConditions')}</ExternalLink>
                 </TYPE.body>
               </RowBetween>
             </LabelRow>
-            <InputRow></InputRow>
           </InputColumn>
         </Grid>
         <Grid>

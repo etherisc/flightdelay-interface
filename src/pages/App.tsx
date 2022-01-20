@@ -51,6 +51,11 @@ const BodyWrapper = styled.div`
 const Marginer = styled.div`
   margin-top: 5rem;
 `
+const Terms = () => {
+  window.location.href =
+    'https://docs.google.com/viewer?url=https://docs.google.com/document/d/1YU5hcymzXkKWEszD0sNgm6cYDoDFpH5ywzkmt6Ivd6k/export?format=pdf'
+  return null
+}
 
 export default function App() {
   return (
@@ -67,6 +72,7 @@ export default function App() {
           <Polling />
           <Web3ReactManager>
             <Switch>
+              <Route path="/terms" component={Terms} />
               <Route exact strict path="/apply" component={Apply} />
               <Route exact strict path="/stake" component={Stake} />
               <Route exact strict path="/policies" component={Policies} />

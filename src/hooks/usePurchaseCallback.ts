@@ -165,11 +165,13 @@ export function usePurchaseCallback(
                 const reason = callError.reason
                   ? callError.reason
                   : callError.code
-                  ? callError.data.data.slice(0, 8) === 'Reverted'
+                  ? callError.data && callError.data.data && callError.data.data.slice(0, 8) === 'Reverted'
                     ? `Error: Revert, reason: ${toUtf8String(callError.data.data.slice(9))}; Message = ${
                         callError.data.message
                       }`
                     : `Error: Code = ${callError.code}, data = ${JSON.stringify(callError.data)}`
+                  : callError.data.code === 32000
+                  ? 'Insufficient funds'
                   : JSON.stringify(callError)
                 return { call: purchaseCall, error: new Error(reason) }
               })
