@@ -7,7 +7,8 @@ export function usePoliciesState(): AppState['policies'] {
 }
 
 export function getPolicyData(dispatch: any, account: any) {
-  const apiURL = `https://fs-api.etherisc.com/api/v1/policies/${account}`
+  const environment = process.env.REACT_APP_DEMO === '0' ? 'production' : 'demo'
+  const apiURL = `https://fs-api.etherisc.com/api/v1/policies/${account}/${environment}`
   fetch(apiURL)
     .then((response: any) => {
       response.json().then((json: any) => {
