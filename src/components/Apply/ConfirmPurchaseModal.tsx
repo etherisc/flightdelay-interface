@@ -38,10 +38,22 @@ export default function ConfirmPurchaseModal({
   // text to show while loading
   const pendingText = t('pendingTransactionText')
 
+  const makeReadable = (message: string) => {
+    const key = message.includes('PFE-006')
+      ? 'ui-error-PFE-006'
+      : message.includes('PFD-007')
+      ? 'ui-error-PFD-007'
+      : message.includes('insufficient funds for transfer')
+      ? 'ui-error-insufficient-funds'
+      : message
+
+    return t(key)
+  }
+
   const confirmationContent = useCallback(
     () =>
       purchaseErrorMessage ? (
-        <TransactionErrorContent onDismiss={onDismiss} message={purchaseErrorMessage} />
+        <TransactionErrorContent onDismiss={onDismiss} message={makeReadable(purchaseErrorMessage)} />
       ) : (
         <ConfirmationModalContent
           title="Confirm Purchase"

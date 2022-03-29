@@ -148,6 +148,7 @@
   "transactionSettings": "Transaction Settings",
   "turnOnExpertMode": "Turn on expert mode",
   "typeConfirm": "Please type the word \"confirm\" to enable expert mode.",
+  "ui-error-insufficient-funds" : "You have insufficient funds.",
   "unknownError": "Oops! An unknown error occurred. Please refresh the page, or visit from another browser or device.",
   "unlock": "Unlock",
   "unlockTokenCont": "Please unlock token to continue.",

@@ -146,6 +146,8 @@
   "transactionSettings": "Transaktions-Einstellungen",
   "turnOnExpertMode": "Expertenmodus einschalten",
   "typeConfirm": "Bitte geben Sie \"confirm\" ein, um den Expertenmodus zu aktivieren.",
+  "ui-error-insufficient-funds" : "Sie haben nicht genügend Guthaben.",
+  "ui-error-PFE-006" : "?",
   "unknownError": "Oops! Ein unbekannter Fehler ist aufgetreten. Bitte Seite neu laden oder uns von einem anderen Browser oder Gerät erneut besuchen.",
   "unlock": "Freischalten",
   "unlockTokenCont": "Token freischalten um fortzufahren.",

@@ -15,6 +15,8 @@ import { Moment } from 'moment'
 import { Flight } from '../../entities/flight'
 
 const CarrierSelect = styled.button<{ selected: boolean }>`
+  white-space: nowrap;
+  overflow-x: scroll;
   align-items: center;
   height: 2.2rem;
   font-size: ${({ selected }) => (selected ? '20px' : '16px')};
@@ -69,15 +71,18 @@ const InputPanel = styled.div<{ hideInput?: boolean; zIndex?: number }>`
   border-radius: ${({ hideInput }) => (hideInput ? '8px' : '20px')};
   background-color: ${({ theme }) => theme.bg2};
   z-index: ${({ zIndex }) => zIndex};
+  min-width: 0;
 `
 
 const Container = styled(RowBetween)`
+  //align-items: baseline; // DamianChanged
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 16px;
   border-radius: 20px;
   border: 1px solid ${({ theme }) => theme.bg2};
   background-color: ${({ theme }) => theme.bg1};
+  min-width: 0;
   @media (max-width: 600px) {
     display: block;
   }
@@ -93,6 +98,7 @@ const InputColumn = styled.div<{ hideInput?: boolean }>`
   ${({ theme }) => theme.flexColumnNoWrap}
   position: relative;
   z-index: 1;
+  min-width: 0;
 `
 
 const StyledCarrier = styled.span<{ active?: boolean }>`
@@ -103,7 +109,7 @@ const StyledDatePicker = styled.div<{ active?: boolean }>`
   & .SingleDatePicker,
   .SingleDatePickerInput {
     .DateInput {
-      background: ${({ theme }) => theme.bg2};
+      background: ${({ theme }) => theme.bg1};
       width: 100%;
     }
     .DateInput_input {
