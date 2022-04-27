@@ -34,7 +34,7 @@ export default function URLWarning() {
       </div>
       <StyledClose size={12} onClick={toggleURLWarning} />
     </PhishAlert>
-  ) : ['flightdelay.etherisc.com/', 'fdd-sandbox.etherisc.com'].includes(window.location.hostname) ? (
+  ) : ['flightdelay.etherisc.com/'].includes(window.location.hostname) ? (
     <PhishAlert isActive={showURLWarning}>
       <div style={{ display: 'flex' }}>
         <AlertTriangle style={{ marginRight: 6 }} size={12} /> Always make sure the URL is
